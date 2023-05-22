@@ -19,12 +19,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Restore artifacts
-      uses: lukka/run-vcpkg@v10
+    - name: ccache
+      uses: hendrikmuhs/ccache-action@v1.2
     - uses: lukka/get-cmake@latest
-    
     - name: Run CMake consuming CMakePresets.json
       uses: lukka/run-cmake@v10
       with:
         workflowPreset: 'default'
+        cmakeListsOrSettingsJson: CMakeListsTxtAdvanced
+        cmakeAppendedArgs: '-DCMAKE_BUILD_TYPE=${{ matrix.type }} -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache'
+
 
