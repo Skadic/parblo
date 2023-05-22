@@ -1,0 +1,114 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 4,
+    "patch": 1
+  },
+  "include": [],
+  "configurePresets": [
+    {
+      "name": "default",
+      "displayName": "Default Config (Debug)",
+      "description": "Default Build (unoptimized+debug)",
+      "inherits": "debug"
+    },
+    {
+      "name": "debug",
+      "displayName": "Debug Config",
+      "description": "Unoptimized with debug symbols",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "environment": {},
+      "vendor": {}
+    },
+    {
+      "name": "release",
+      "displayName": "Release Config",
+      "description": "Optimized without debug symbols",
+      "binaryDir": "${sourceDir}/build/release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "inherits": "debug"
+    },
+    {
+      "name": "relwithdebinfo",
+      "displayName": "Release Config with Debug Info",
+      "description": "Optimized with debug symbols",
+      "binaryDir": "${sourceDir}/build/relwithdebinfo",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      },
+      "inherits": "debug"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "default",
+      "configurePreset": "default"
+    },
+    {
+      "name": "debug",
+      "configurePreset": "debug"
+    },
+    {
+      "name": "release",
+      "configurePreset": "release"
+    },
+    {
+      "name": "relwithdebinfo",
+      "configurePreset": "relwithdebinfo"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "default",
+      "inherits": "relwithdebinfo"
+    },
+    {
+      "name": "relwithdebinfo",
+      "configurePreset": "relwithdebinfo",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    },
+    {
+      "name": "debug",
+      "configurePreset": "debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "default",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "relwithdebinfo"
+        },
+        {
+          "type": "build",
+          "name": "relwithdebinfo"
+        },
+        {
+          "type": "test",
+          "name": "default"
+        }
+      ]
+    }
+  ]
+}
