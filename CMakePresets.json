@@ -9,21 +9,23 @@
   "configurePresets": [
     {
       "name": "default",
-      "displayName": "Default Config (Debug)",
-      "description": "Default Build (unoptimized+debug)",
-      "inherits": "debug"
+      "displayName": "Default Config",
+      "description": "Default Build (optimized+debug)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/relwithdebinfo",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
     },
     {
       "name": "debug",
       "displayName": "Debug Config",
       "description": "Unoptimized with debug symbols",
-      "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       },
-      "environment": {},
-      "vendor": {}
+      "inherits": "default"
     },
     {
       "name": "release",
@@ -33,35 +35,43 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       },
-      "inherits": "debug"
+      "inherits": "default"
     },
     {
       "name": "relwithdebinfo",
       "displayName": "Release Config with Debug Info",
       "description": "Optimized with debug symbols",
-      "binaryDir": "${sourceDir}/build/relwithdebinfo",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
-      },
-      "inherits": "debug"
+      "inherits": "default"
     }
   ],
   "buildPresets": [
     {
       "name": "default",
-      "configurePreset": "default"
+      "configurePreset": "default",
+      "targets": [
+        "copy-compile-commands",
+        "tests"
+      ]
     },
     {
       "name": "debug",
-      "configurePreset": "debug"
+      "configurePreset": "debug",
+      "inherits": "default"
     },
     {
       "name": "release",
-      "configurePreset": "release"
+      "configurePreset": "release",
+      "inherits": "default"
     },
     {
       "name": "relwithdebinfo",
-      "configurePreset": "relwithdebinfo"
+      "configurePreset": "relwithdebinfo",
+      "inherits": "default"
+    },
+    {
+      "name": "compile-commands",
+      "configurePreset": "default",
+      "targets": "copy-compile-commands"
     }
   ],
   "testPresets": [

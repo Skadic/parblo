@@ -20,6 +20,29 @@ add_custom_target(
 add_library(parblo INTERFACE)
 target_include_directories(parblo INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+# ----------- Dependencies -----------
+# growt
+FetchContent_Declare(
+  growt
+  GIT_REPOSITORY https://github.com/TooBiased/growt.git
+  GIT_TAG 0c1148ebcdfd4c04803be79706533ad09cc81d37
+  BUILD_COMMAND ""
+)
+FetchContent_MakeAvailable(growt)
+target_include_directories(parblo INTERFACE ${growt_SOURCE_DIR})
+
+# word-packing
+FetchContent_Declare(
+  word-packing
+  GIT_REPOSITORY https://github.com/pdinklag/word-packing.git
+  GIT_TAG c7d86247503b71ea359373aa14b9a64b334cbb4a
+  BUILD_COMMAND ""
+)
+FetchContent_MakeAvailable(word-packing)
+message("wp source: ${wordpacking_SOURCE_DIR}")
+target_link_libraries(parblo INTERFACE word-packing)
+
+
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   enable_testing()
   add_subdirectory(test)
