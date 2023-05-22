@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4.1 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 project(parblo)
 
 Include(FetchContent)
@@ -12,9 +12,9 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
 # Copy compile_commands into the root folder
 add_custom_target(
-        copy-compile-commands ALL
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/compile_commands.json ${CMAKE_CURRENT_LIST_DIR}/compile_commands.json
-        COMMAND ${CMAKE_COMMAND} -E echo "Copied compile_commands.json into root folder"
+  copy-compile-commands ALL
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/compile_commands.json ${CMAKE_CURRENT_LIST_DIR}/compile_commands.json
+  COMMAND ${CMAKE_COMMAND} -E echo "Copied compile_commands.json into root folder"
 )
 
 add_library(parblo INTERFACE)
@@ -39,9 +39,11 @@ FetchContent_Declare(
   BUILD_COMMAND ""
 )
 FetchContent_MakeAvailable(word-packing)
-message("wp source: ${wordpacking_SOURCE_DIR}")
 target_link_libraries(parblo INTERFACE word-packing)
 
+# openmp
+find_package(OpenMP REQUIRED)
+target_link_libraries(parblo INTERFACE OpenMP::OpenMP_CXX)
 
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   enable_testing()
