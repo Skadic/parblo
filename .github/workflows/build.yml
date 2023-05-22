@@ -24,7 +24,5 @@ jobs:
     - name: Run CMake consuming CMakePresets.json
       uses: lukka/run-cmake@v10
       with:
-        configurePreset: 'relwithdebinfo'
-        buildPreset: 'relwithdebinfo'
-        testPreset: 'relwithdebinfo'
+        workflowPreset: 'default'
 
