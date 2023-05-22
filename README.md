@@ -12,6 +12,7 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/Skadic/parblo.git
     GIT_TAG        9ac7e685daf90e6835c383b07ed788fe2a238876 # You probably want a different commit hash than this
 )
+FetchContent_MakeAvailable(parblo)
 ```
 
 Then, just add `parblo` as a library.
