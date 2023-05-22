@@ -9,6 +9,9 @@ on:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
+  CMAKE_C_COMPILER_LAUNCHER: ccache
+  CMAKE_CXX_COMPILER_LAUNCHER: ccache
+
 
 jobs:
   ci:
@@ -27,7 +30,4 @@ jobs:
       uses: lukka/run-cmake@v10
       with:
         workflowPreset: 'default'
-        cmakeListsOrSettingsJson: CMakeListsTxtAdvanced
-        cmakeAppendedArgs: '-DCMAKE_BUILD_TYPE=${{ matrix.type }} -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache'
-
 
