@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.4.1 FATAL_ERROR)
+project(parblo)
+
+Include(FetchContent)
+
+set(CXX_STANDARD c++20)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=gnu++20 ${GCC_WARNINGS}")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb")
+
+# Generate compile_commands.json
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
+
+add_library(parblo INTERFACE)
+target_include_directories(parblo INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+  enable_testing()
+  add_subdirectory(test)
+endif()
