@@ -1,5 +1,9 @@
-cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 project(parblo)
+
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
+  message( FATAL_ERROR "Source builds are prohibited")
+endif()
 
 Include(FetchContent)
 
@@ -26,6 +30,7 @@ FetchContent_Declare(
   growt
   GIT_REPOSITORY https://github.com/TooBiased/growt.git
   GIT_TAG 0c1148ebcdfd4c04803be79706533ad09cc81d37
+  CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
 )
 FetchContent_MakeAvailable(growt)

@@ -1,124 +1,100 @@
 {
-  "version": 6,
-  "cmakeMinimumRequired": {
-    "major": 3,
-    "minor": 4,
-    "patch": 1
-  },
-  "include": [],
-  "configurePresets": [
-    {
-      "name": "default",
-      "displayName": "Default Config",
-      "description": "Default Build (optimized+debug)",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/relwithdebinfo",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
-      }
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 25,
+        "patch": 0
     },
-    {
-      "name": "debug",
-      "displayName": "Debug Config",
-      "description": "Unoptimized with debug symbols",
-      "binaryDir": "${sourceDir}/build/debug",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
-      },
-      "inherits": "default"
-    },
-    {
-      "name": "release",
-      "displayName": "Release Config",
-      "description": "Optimized without debug symbols",
-      "binaryDir": "${sourceDir}/build/release",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
-      },
-      "inherits": "default"
-    },
-    {
-      "name": "relwithdebinfo",
-      "displayName": "Release Config with Debug Info",
-      "description": "Optimized with debug symbols",
-      "inherits": "default"
-    }
-  ],
-  "buildPresets": [
-    {
-      "name": "default",
-      "configurePreset": "default",
-      "targets": [
-        "copy-compile-commands",
-        "tests"
-      ]
-    },
-    {
-      "name": "debug",
-      "configurePreset": "debug",
-      "inherits": "default"
-    },
-    {
-      "name": "release",
-      "configurePreset": "release",
-      "inherits": "default"
-    },
-    {
-      "name": "relwithdebinfo",
-      "configurePreset": "relwithdebinfo",
-      "inherits": "default"
-    },
-    {
-      "name": "compile-commands",
-      "configurePreset": "default",
-      "targets": "copy-compile-commands"
-    }
-  ],
-  "testPresets": [
-    {
-      "name": "default",
-      "inherits": "relwithdebinfo"
-    },
-    {
-      "name": "relwithdebinfo",
-      "configurePreset": "relwithdebinfo",
-      "output": {
-        "outputOnFailure": true
-      },
-      "execution": {
-        "noTestsAction": "error",
-        "stopOnFailure": true
-      }
-    },
-    {
-      "name": "debug",
-      "configurePreset": "debug",
-      "output": {
-        "outputOnFailure": true
-      },
-      "execution": {
-        "noTestsAction": "error",
-        "stopOnFailure": true
-      }
-    }
-  ],
-  "workflowPresets": [
-    {
-      "name": "default",
-      "steps": [
+    "include": [],
+    "configurePresets": [
         {
-          "type": "configure",
-          "name": "relwithdebinfo"
+            "name": "default",
+            "displayName": "Default Config",
+            "description": "Default Build (Ninja Multi-Config)",
+            "inherits": "multi"
         },
         {
-          "type": "build",
-          "name": "relwithdebinfo"
-        },
-        {
-          "type": "test",
-          "name": "default"
+            "name": "multi",
+            "displayName": "Ninja Multi-Config",
+            "description": "Ninja build with multi config",
+            "binaryDir": "${sourceDir}/build/multi",
+            "generator": "Ninja Multi-Config",
+            "cacheVariables": {
+                "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo;Release;Debug"
+            }
         }
-      ]
-    }
-  ]
+    ],
+    "buildPresets": [
+        {
+            "name": "default",
+            "configurePreset": "multi",
+            "configuration": "RelWithDebInfo",
+            "targets": [
+                "copy-compile-commands",
+                "tests"
+            ]
+        },
+        {
+            "name": "debug",
+            "inherits": "default",
+            "configuration": "Debug" 
+        },
+        {
+            "name": "release",
+            "inherits": "default",
+            "configuration": "Release" 
+        },
+        {
+            "name": "relwithdebinfo",
+            "inherits": "default",
+            "configuration": "RelWithDebInfo" 
+        },
+        {
+            "name": "compile-commands",
+            "inherits": "default",
+            "targets": "copy-compile-commands"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "default",
+            "configurePreset": "multi",
+            "configuration": "RelWithDebInfo",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "relwithdebinfo",
+            "inherits": "default"
+        },
+        {
+            "name": "debug",
+            "inherits": "default",
+            "configuration": "Debug"
+        }
+    ],
+    "workflowPresets": [
+        {
+            "name": "default",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "multi"
+                },
+                {
+                    "type": "build",
+                    "name": "relwithdebinfo"
+                },
+                {
+                    "type": "test",
+                    "name": "relwithdebinfo"
+                }
+            ]
+        }
+    ]
 }
