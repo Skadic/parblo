@@ -1,0 +1,22 @@
+[project]
+name = "parblo"
+version = "0.0.1"
+
+# Optional, adding this will enable direct links from the documentation
+# to your source code.
+git_repo_url = "https://github.com/Skadic/parblo/"
+git_default_branch = "main"
+
+[paths]
+compile_commands = "./compile_commands.json"
+output_dir = "docs"
+
+[includes]
+path = []
+use_system_includes = true
+
+[ignore]
+paths = [
+    "test",
+    "build",
+]
