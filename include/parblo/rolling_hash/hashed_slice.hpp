@@ -44,6 +44,7 @@ class HashedSlice {
         HashedSlice(view.cbegin(), view.length(), hash) {}
 
     /// @brief Constructs a new hashed slice from a pair of iterators.
+    /// @tparam It The iterator type.
     /// @param start The inclusive start iterator of the hashed slice inside the string. This must be able to be cast to
     /// a `const uint_8` pointer.
     /// @param end The exclusive end iterator of the hashed slice inside the string.

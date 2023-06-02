@@ -12,7 +12,7 @@ compile_commands = "./compile_commands.json"
 output_dir = "docs"
 
 [includes]
-path = []
+path = ["include", "/include"]
 use_system_includes = true
 
 [ignore]
@@ -20,3 +20,6 @@ paths = [
     "test",
     "build",
 ]
+
+[pages]
+home = "./README.md"

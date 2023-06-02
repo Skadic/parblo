@@ -4,6 +4,8 @@ FetchContent_Declare(
   GIT_TAG v3.3.2 # or a later release
 )
 
+file(COPY resources DESTINATION .)
+
 FetchContent_MakeAvailable(Catch2)
 list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 
