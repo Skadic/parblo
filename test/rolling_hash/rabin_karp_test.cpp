@@ -10,7 +10,7 @@
 #include <string_view>
 #include <unordered_set>
 
-constexpr std::string RESOURCE_PATH = "./resources/";
+std::string RESOURCE_PATH = "./resources/";
 
 using namespace parblo;
 
