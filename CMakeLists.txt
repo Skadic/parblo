@@ -46,6 +46,15 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(word-packing)
 target_link_libraries(parblo INTERFACE word-packing)
 
+FetchContent_Declare(
+  pasta_bit_vector
+  GIT_REPOSITORY https://github.com/pasta-toolbox/bit_vector.git
+  GIT_TAG 0d3249dc42770a844d56dc25416763d37953aa5c
+  BUILD_COMMAND ""
+)
+FetchContent_MakeAvailable(pasta_bit_vector)
+target_link_libraries(parblo INTERFACE pasta_bit_vector)
+
 # openmp
 find_package(OpenMP REQUIRED)
 target_link_libraries(parblo INTERFACE OpenMP::OpenMP_CXX)
