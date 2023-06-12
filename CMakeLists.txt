@@ -59,6 +59,9 @@ target_link_libraries(parblo INTERFACE pasta_bit_vector)
 find_package(OpenMP REQUIRED)
 target_link_libraries(parblo INTERFACE OpenMP::OpenMP_CXX)
 
+# Some compile options
+target_compile_options(parblo INTERFACE -Wall -Werror=return-type)
+
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   enable_testing()
   add_subdirectory(test)
