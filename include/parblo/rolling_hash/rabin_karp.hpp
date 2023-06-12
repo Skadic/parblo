@@ -19,7 +19,7 @@ class RabinKarp {
     /// @brief A pointer into the string we are hashing windows of
     const uint8_t *m_source;
     /// @brief The number of characters from the positions of RabinKarp#m_source
-    const size_t m_string_len;
+    size_t m_string_len;
     /// @brief The current offset into the string. We are hashing s[offset..offset + window_size]
     size_t m_offset;
     /// @brief The size of the hashed window in bytes
@@ -73,12 +73,24 @@ class RabinKarp {
     inline RabinKarp(const std::string &source, const size_t start, const size_t window_size) :
         RabinKarp(source.c_str() + start, source.length() - start, window_size) {}
 
+    /// \brief Copy constructor
+    inline RabinKarp(const RabinKarp &other) = default;
+
+    /// \brief Move constructor
+    inline RabinKarp(RabinKarp &&other) = default;
+
+    /// \brief Copy assignment operator
+    inline auto operator=(const RabinKarp &other) -> RabinKarp & = default;
+
+    /// \brief Move assignment operator
+    inline auto operator=(RabinKarp &&other) -> RabinKarp & = default;
+
     /// @brief Returns the hash value for the current window.
-    inline auto hash() const -> const uint64_t { return this->m_hash; }
+    [[nodiscard]] inline auto hash() const -> uint64_t { return this->m_hash; }
 
     /// @brief Advances the hashed by one byte and recalculates the hash value.
     /// @return The hash value after advancing.
-    auto advance() -> const uint64_t {
+    auto advance() -> uint64_t {
         uint8_t outchar = m_source[m_offset];
         uint8_t inchar  = m_source[m_offset + m_window_size];
 
@@ -109,8 +121,8 @@ class RabinKarp {
     /// length being the window size and the hash value being the current hash value of the Rabin-Karp hasher.
     ///
     /// @return A HashedSlice containing the current state of the hasher.
-    inline auto hashed_slice() const -> const HashedSlice {
-        return HashedSlice(m_source + m_offset, m_window_size, m_hash);
+    [[nodiscard]] inline auto hashed_slice() const -> HashedSlice {
+        return {m_source + m_offset, m_window_size, m_hash};
     }
 
     /// @brief Comparison operator comparing solely on the current hash and position in the string.
