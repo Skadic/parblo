@@ -40,8 +40,7 @@ class HashedSlice {
     /// @brief Constructs a new hashed slice from a string view.
     /// @param view The string view that represents the hashed slice.
     /// @param hash The hash value of this slice.
-    inline HashedSlice(const std::string_view &view, uint64_t hash) :
-        HashedSlice(view.cbegin(), view.length(), hash) {}
+    inline HashedSlice(const std::string_view &view, uint64_t hash) : HashedSlice(view.cbegin(), view.length(), hash) {}
 
     /// @brief Constructs a new hashed slice from a pair of iterators.
     /// @tparam It The iterator type.
@@ -52,6 +51,13 @@ class HashedSlice {
     template<std::input_iterator It>
     inline HashedSlice(It start, It end, uint64_t hash) :
         HashedSlice(reinterpret_cast<const char *>(start), std::distance(start, end), hash) {}
+
+    /// \brief Constructs a hashed slice exclusively for searching in hash tables.
+    ///
+    /// Since the hash implementation only cares about the m_hash field, we can use this to search in hash tables with
+    /// HashedSlice as keys.
+    /// \param hash The hash value of the slice you want to search for.
+    inline HashedSlice(uint64_t hash) : m_bytes{nullptr}, m_length{0}, m_hash{hash} {}
 
     /// @brief Indexes into the hashed slice and returns the byte at the given index.
     /// @param i The index to retrieve.
