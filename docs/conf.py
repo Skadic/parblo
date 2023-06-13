@@ -26,18 +26,6 @@ exhale_args = {
     "createTreeView":        True,
     # TIP: if using the sphinx-bootstrap-theme, you need
     "treeViewIsBootstrap": True,
-    "exhaleExecutesDoxygen": True,
-    "exhaleDoxygenStdin": dedent('''
-        EXTRACT_ALL = YES
-        SOURCE_BROWSER = YES
-        EXTRACT_STATIC = YES
-        HIDE_SCOPE_NAMES = YES
-        QUIET = YES
-        INPUT = ../include ../src
-        FILE_PATTERNS = *.cpp *.hpp
-        EXAMPLE_RECURSIVE = YES
-        GENERATE_TREEVIEW = YES
-    ''')
 }
 
 # Configuration for the theme
