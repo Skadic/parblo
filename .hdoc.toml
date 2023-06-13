@@ -12,7 +12,7 @@ compile_commands = "./compile_commands.json"
 output_dir = "docs"
 
 [includes]
-path = ["include", "/include"]
+paths = ["include", "/include"]
 use_system_includes = true
 
 [ignore]

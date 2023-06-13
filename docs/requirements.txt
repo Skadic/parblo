@@ -1,0 +1,6 @@
+breathe==4.35.0
+sphinx==4.5.0
+myst-parser
+exhale==0.3.6
+textwrap3==0.9.2
+sphinx_book_theme

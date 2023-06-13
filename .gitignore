@@ -3,4 +3,7 @@ build/
 compile_commands.json
 .vscode/c_cpp_properties.json
 cmake-build-*
-docs/
+docs/api
+docs/sphinx
+docs/xml
+**/nohup.out
