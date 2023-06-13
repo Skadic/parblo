@@ -31,7 +31,7 @@
             "configuration": "RelWithDebInfo",
             "targets": [
                 "copy-compile-commands",
-                "tests"
+                "parblo_tests"
             ]
         },
         {
