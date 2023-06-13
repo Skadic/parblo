@@ -135,11 +135,11 @@
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Class BlockTree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1HashedSlice.html">Class HashedSlice</a></li>
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1RabinKarp.html">Class RabinKarp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a82a7608700602b87b40fd19e44c63780.html">Typedef parblo::MarkingAccessor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a5e2f8f8f1d20f3bdaaef595a837133dd.html">Typedef parblo::PackedIntVector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a257163a3e064eb018e02abc78a2b4a85.html">Typedef parblo::RabinKarpMap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1aece1277f86a5d776b374894d611a90d5.html">Typedef parblo::RabinKarpMultiMap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1ac23d6e1304efd0ad55640c089597ce6b.html">Typedef parblo::RabinKarpSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a299477b8d11ef60f7d7777f849490ab2.html">Typedef parblo::internal::BitVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a5e2f8f8f1d20f3bdaaef595a837133dd.html">Typedef parblo::internal::PackedIntVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a257163a3e064eb018e02abc78a2b4a85.html">Typedef parblo::internal::RabinKarpMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1aece1277f86a5d776b374894d611a90d5.html">Typedef parblo::internal::RabinKarpMultiMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a80e643d46849ec2bbb8720838fef13b1.html">Typedef parblo::internal::Rank</a></li>
 </ul>
 </li>
 </ul>
@@ -330,7 +330,21 @@ document.write(`
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I_21BlockTreeConstructionEN6parblo9BlockTree9BlockTreeERKNSt6stringEK6size_tK6size_t10ConstrAlgo">
 <span id="_CPPv3I_21BlockTreeConstructionEN6parblo9BlockTree9BlockTreeERKNSt6stringEK6size_tK6size_t10ConstrAlgo"></span><span id="_CPPv2I_21BlockTreeConstructionEN6parblo9BlockTree9BlockTreeERKNSt6stringEK6size_tK6size_t10ConstrAlgo"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">BlockTreeConstruction</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConstrAlgo</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classparblo_1_1BlockTree_1ad05f35e95f6a67a3d9422d3a62d264c3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BlockTree</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">input</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">arity</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">leaf_length</span></span>, <a class="reference internal" href="#_CPPv4I_21BlockTreeConstructionEN6parblo9BlockTree9BlockTreeERKNSt6stringEK6size_tK6size_t10ConstrAlgo" title="parblo::BlockTree::BlockTree::ConstrAlgo"><span class="n"><span class="pre">ConstrAlgo</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">algo</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_21BlockTreeConstructionEN6parblo9BlockTree9BlockTreeERKNSt6stringEK6size_tK6size_t10ConstrAlgo" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Constructs a block tree with the given parameters and construction algorithm. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>ConstrAlgo</strong> – The construction algorithm to be used. This must be a class with a public method <code class="docutils literal notranslate"><span class="pre">construct(</span><a class="reference internal" href="#classparblo_1_1BlockTree"><span class="std std-ref"><span class="pre">parblo::BlockTree</span></span></a> <span class="pre">*bt,</span> <span class="pre">const</span> <span class="pre">std::string</span> <span class="pre">&amp;s)</span></code> that will construct the block tree. </p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>input</strong> – The input string. </p></li>
+<li><p><strong>arity</strong> – The arity of each block, save for the root node. </p></li>
+<li><p><strong>leaf_length</strong> – The number of characters each leaf will store. These characters will be stored verbatim. </p></li>
+<li><p><strong>algo</strong> – An instance of the construction algorithm that should be used. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 </dd></dl>

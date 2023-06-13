@@ -133,11 +133,11 @@
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1BlockTree.html">Class BlockTree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1HashedSlice.html">Class HashedSlice</a></li>
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1RabinKarp.html">Class RabinKarp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a82a7608700602b87b40fd19e44c63780.html">Typedef parblo::MarkingAccessor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a5e2f8f8f1d20f3bdaaef595a837133dd.html">Typedef parblo::PackedIntVector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a257163a3e064eb018e02abc78a2b4a85.html">Typedef parblo::RabinKarpMap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1aece1277f86a5d776b374894d611a90d5.html">Typedef parblo::RabinKarpMultiMap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1ac23d6e1304efd0ad55640c089597ce6b.html">Typedef parblo::RabinKarpSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a299477b8d11ef60f7d7777f849490ab2.html">Typedef parblo::internal::BitVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a5e2f8f8f1d20f3bdaaef595a837133dd.html">Typedef parblo::internal::PackedIntVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a257163a3e064eb018e02abc78a2b4a85.html">Typedef parblo::internal::RabinKarpMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1aece1277f86a5d776b374894d611a90d5.html">Typedef parblo::internal::RabinKarpMultiMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a80e643d46849ec2bbb8720838fef13b1.html">Typedef parblo::internal::Rank</a></li>
 </ul>
 </li>
 </ul>
@@ -315,7 +315,9 @@ document.write(`
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
 
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pasta/bit_vector/bit_vector.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;word_packing.hpp&gt;</span>
 
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;parblo/defs.hpp&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;parblo/rolling_hash/rabin_karp.hpp&gt;</span>
 
 <span class="k">namespace</span><span class="w"> </span><span class="nn">parblo</span><span class="w"> </span><span class="p">{</span>
@@ -328,13 +330,19 @@ document.write(`
 <span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">algo</span><span class="p">.</span><span class="n">construct</span><span class="p">(</span><span class="n">bt</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
 <span class="p">};</span>
 
-<span class="k">using</span><span class="w"> </span><span class="n">pasta</span><span class="o">::</span><span class="n">BitVector</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">internal</span><span class="p">;</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">BlockTree</span><span class="w"> </span><span class="p">{</span>
-
 <span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="n">Sequential</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">BitVector</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">m_is_internal</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Rank</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_is_internal_rank</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">PackedIntVector</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_source_blocks</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">PackedIntVector</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_offsets</span><span class="p">;</span>
 
 <span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">m_input_length</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">m_leaf_length</span><span class="p">;</span>
@@ -368,6 +376,10 @@ document.write(`
 <span class="w">  </span><span class="k">public</span><span class="o">:</span>
 <span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="n">BlockTreeConstruction</span><span class="w"> </span><span class="n">ConstrAlgo</span><span class="o">&gt;</span>
 <span class="w">    </span><span class="n">BlockTree</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">arity</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">leaf_length</span><span class="p">,</span><span class="w"> </span><span class="n">ConstrAlgo</span><span class="w"> </span><span class="n">algo</span><span class="p">)</span><span class="w"> </span><span class="o">:</span>
+<span class="w">        </span><span class="n">m_is_internal</span><span class="p">{},</span>
+<span class="w">        </span><span class="n">m_is_internal_rank</span><span class="p">{},</span>
+<span class="w">        </span><span class="n">m_source_blocks</span><span class="p">{},</span>
+<span class="w">        </span><span class="n">m_offsets</span><span class="p">{},</span>
 <span class="w">        </span><span class="n">m_input_length</span><span class="p">{</span><span class="n">input</span><span class="p">.</span><span class="n">length</span><span class="p">()},</span>
 <span class="w">        </span><span class="n">m_leaf_length</span><span class="p">{</span><span class="n">leaf_length</span><span class="p">},</span>
 <span class="w">        </span><span class="n">m_arity</span><span class="p">{</span><span class="n">arity</span><span class="p">},</span>

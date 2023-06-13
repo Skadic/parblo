@@ -19,7 +19,9 @@ Program Listing for File block_tree.hpp
    #include <memory>
    
    #include <pasta/bit_vector/bit_vector.hpp>
+   #include <word_packing.hpp>
    
+   #include <parblo/defs.hpp>
    #include <parblo/rolling_hash/rabin_karp.hpp>
    
    namespace parblo {
@@ -32,13 +34,19 @@ Program Listing for File block_tree.hpp
        { algo.construct(bt, s) };
    };
    
-   using pasta::BitVector;
+   using namespace internal;
    
    class BlockTree {
-   
        friend Sequential;
    
        std::vector<std::unique_ptr<BitVector>> m_is_internal;
+   
+       std::vector<Rank> m_is_internal_rank;
+   
+   
+       std::vector<PackedIntVector> m_source_blocks;
+   
+       std::vector<PackedIntVector> m_offsets;
    
        size_t m_input_length;
        size_t m_leaf_length;
@@ -72,6 +80,10 @@ Program Listing for File block_tree.hpp
      public:
        template<BlockTreeConstruction ConstrAlgo>
        BlockTree(const std::string &input, const size_t arity, const size_t leaf_length, ConstrAlgo algo) :
+           m_is_internal{},
+           m_is_internal_rank{},
+           m_source_blocks{},
+           m_offsets{},
            m_input_length{input.length()},
            m_leaf_length{leaf_length},
            m_arity{arity},

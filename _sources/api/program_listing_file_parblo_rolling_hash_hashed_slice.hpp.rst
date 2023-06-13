@@ -32,12 +32,13 @@ Program Listing for File hashed_slice.hpp
        inline HashedSlice(const std::string &s, size_t start, size_t end, uint64_t hash) :
            HashedSlice(s.c_str(), end - start, hash) {}
    
-       inline HashedSlice(const std::string_view &view, uint64_t hash) :
-           HashedSlice(view.cbegin(), view.length(), hash) {}
+       inline HashedSlice(const std::string_view &view, uint64_t hash) : HashedSlice(view.cbegin(), view.length(), hash) {}
    
        template<std::input_iterator It>
        inline HashedSlice(It start, It end, uint64_t hash) :
            HashedSlice(reinterpret_cast<const char *>(start), std::distance(start, end), hash) {}
+   
+       inline HashedSlice(uint64_t hash) : m_bytes{nullptr}, m_length{0}, m_hash{hash} {}
    
        [[nodiscard]] inline auto operator[](const size_t i) const -> const uint8_t { return *(m_bytes + i); }
    

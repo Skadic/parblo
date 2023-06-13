@@ -135,11 +135,11 @@
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1BlockTree.html">Class BlockTree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1HashedSlice.html">Class HashedSlice</a></li>
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1RabinKarp.html">Class RabinKarp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a82a7608700602b87b40fd19e44c63780.html">Typedef parblo::MarkingAccessor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a5e2f8f8f1d20f3bdaaef595a837133dd.html">Typedef parblo::PackedIntVector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a257163a3e064eb018e02abc78a2b4a85.html">Typedef parblo::RabinKarpMap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1aece1277f86a5d776b374894d611a90d5.html">Typedef parblo::RabinKarpMultiMap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1ac23d6e1304efd0ad55640c089597ce6b.html">Typedef parblo::RabinKarpSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a299477b8d11ef60f7d7777f849490ab2.html">Typedef parblo::internal::BitVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a5e2f8f8f1d20f3bdaaef595a837133dd.html">Typedef parblo::internal::PackedIntVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a257163a3e064eb018e02abc78a2b4a85.html">Typedef parblo::internal::RabinKarpMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1aece1277f86a5d776b374894d611a90d5.html">Typedef parblo::internal::RabinKarpMultiMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a80e643d46849ec2bbb8720838fef13b1.html">Typedef parblo::internal::Rank</a></li>
 </ul>
 </li>
 </ul>
@@ -331,15 +331,21 @@ document.write(`
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N6parblo8internal4Link9IndexTypeE">
 <span id="_CPPv3N6parblo8internal4Link9IndexTypeE"></span><span id="_CPPv2N6parblo8internal4Link9IndexTypeE"></span><span class="target" id="structparblo_1_1internal_1_1Link_1a0be4c3fc1040524db615193baaaa6864"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IndexType</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">uint32_t</span></span><a class="headerlink" href="#_CPPv4N6parblo8internal4Link9IndexTypeE" title="Permalink to this definition">#</a><br /></dt>
-<dd></dd></dl>
+<dd><p>The number type used by this class. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6parblo8internal4Link4LinkE9IndexType">
-<span id="_CPPv3N6parblo8internal4Link4LinkE9IndexType"></span><span id="_CPPv2N6parblo8internal4Link4LinkE9IndexType"></span><span id="parblo::internal::Link::Link__IndexTypeCE"></span><span class="target" id="structparblo_1_1internal_1_1Link_1a9d04f3edd336c63acfe8d7db5188265f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Link</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6parblo8internal4Link9IndexTypeE" title="parblo::internal::Link::IndexType"><span class="n"><span class="pre">IndexType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">back_index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo8internal4Link4LinkE9IndexType" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N6parblo8internal4Link4LinkE9IndexType"></span><span id="_CPPv2N6parblo8internal4Link4LinkE9IndexType"></span><span id="parblo::internal::Link::Link__IndexTypeCE"></span><span class="target" id="structparblo_1_1internal_1_1Link_1ab67413bc6b30e2e05948209b59f53697"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Link</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6parblo8internal4Link9IndexTypeE" title="parblo::internal::Link::IndexType"><span class="n"><span class="pre">IndexType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">block_index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo8internal4Link4LinkE9IndexType" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Creates a new source representing an invalid/non-existent source. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>block_index</strong> – The index of the block <em>from</em> which the link goes out, i.e. the index of the back block. This is the normal index on the current level. </p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="cpp function">
@@ -358,15 +364,15 @@ document.write(`
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6parblo8internal4Link16back_block_indexE">
-<span id="_CPPv3N6parblo8internal4Link16back_block_indexE"></span><span id="_CPPv2N6parblo8internal4Link16back_block_indexE"></span><span id="parblo::internal::Link::back_block_index__IndexType"></span><span class="target" id="structparblo_1_1internal_1_1Link_1ae02f0efe709b19994b0d76e2f8873d52"></span><a class="reference internal" href="#_CPPv4N6parblo8internal4Link9IndexTypeE" title="parblo::internal::Link::IndexType"><span class="n"><span class="pre">IndexType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">back_block_index</span></span></span><a class="headerlink" href="#_CPPv4N6parblo8internal4Link16back_block_indexE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>The block index of the back block on the current level of the tree. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo8internal4Link11block_indexE">
+<span id="_CPPv3N6parblo8internal4Link11block_indexE"></span><span id="_CPPv2N6parblo8internal4Link11block_indexE"></span><span id="parblo::internal::Link::block_index__IndexTypeC"></span><span class="target" id="structparblo_1_1internal_1_1Link_1ad0775cdb474309338e0b5596db3ab7b7"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6parblo8internal4Link9IndexTypeE" title="parblo::internal::Link::IndexType"><span class="n"><span class="pre">IndexType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">block_index</span></span></span><a class="headerlink" href="#_CPPv4N6parblo8internal4Link11block_indexE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The index of the block from which the pointer goes <em>out</em> on the current level of the tree. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N6parblo8internal4Link18source_block_indexE">
 <span id="_CPPv3N6parblo8internal4Link18source_block_indexE"></span><span id="_CPPv2N6parblo8internal4Link18source_block_indexE"></span><span id="parblo::internal::Link::source_block_index__IndexType"></span><span class="target" id="structparblo_1_1internal_1_1Link_1a49b4e703f49502e1339410e7e0ca3dbc"></span><a class="reference internal" href="#_CPPv4N6parblo8internal4Link9IndexTypeE" title="parblo::internal::Link::IndexType"><span class="n"><span class="pre">IndexType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">source_block_index</span></span></span><a class="headerlink" href="#_CPPv4N6parblo8internal4Link18source_block_indexE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>The block index of the source on the current level of the tree. </p>
+<dd><p>The index of the source block <em>to</em> which this link points on the current level of the tree. </p>
 </dd></dl>
 
 <dl class="cpp var">

@@ -36,6 +36,8 @@ Includes
 
 - ``memory``
 
+- ``parblo/defs.hpp`` (:ref:`file_parblo_defs.hpp`)
+
 - ``parblo/rolling_hash/rabin_karp.hpp`` (:ref:`file_parblo_rolling_hash_rabin_karp.hpp`)
 
 - ``pasta/bit_vector/bit_vector.hpp``
@@ -43,6 +45,8 @@ Includes
 - ``string``
 
 - ``vector``
+
+- ``word_packing.hpp``
 
 
 

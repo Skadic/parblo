@@ -135,11 +135,11 @@
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1BlockTree.html">Class BlockTree</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Class HashedSlice</a></li>
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1RabinKarp.html">Class RabinKarp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a82a7608700602b87b40fd19e44c63780.html">Typedef parblo::MarkingAccessor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a5e2f8f8f1d20f3bdaaef595a837133dd.html">Typedef parblo::PackedIntVector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a257163a3e064eb018e02abc78a2b4a85.html">Typedef parblo::RabinKarpMap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1aece1277f86a5d776b374894d611a90d5.html">Typedef parblo::RabinKarpMultiMap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1ac23d6e1304efd0ad55640c089597ce6b.html">Typedef parblo::RabinKarpSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a299477b8d11ef60f7d7777f849490ab2.html">Typedef parblo::internal::BitVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a5e2f8f8f1d20f3bdaaef595a837133dd.html">Typedef parblo::internal::PackedIntVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a257163a3e064eb018e02abc78a2b4a85.html">Typedef parblo::internal::RabinKarpMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1aece1277f86a5d776b374894d611a90d5.html">Typedef parblo::internal::RabinKarpMultiMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a80e643d46849ec2bbb8720838fef13b1.html">Typedef parblo::internal::Rank</a></li>
 </ul>
 </li>
 </ul>
@@ -402,6 +402,18 @@ document.write(`
 <li><p><strong>end</strong> – The exclusive end iterator of the hashed slice inside the string. </p></li>
 <li><p><strong>hash</strong> – The hash value of this slice. </p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo11HashedSlice11HashedSliceE8uint64_t">
+<span id="_CPPv3N6parblo11HashedSlice11HashedSliceE8uint64_t"></span><span id="_CPPv2N6parblo11HashedSlice11HashedSliceE8uint64_t"></span><span id="parblo::HashedSlice::HashedSlice__uint64_t"></span><span class="target" id="classparblo_1_1HashedSlice_1a19499e53d0d908fa80cd6de83b478eca"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HashedSlice</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hash</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo11HashedSlice11HashedSliceE8uint64_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs a hashed slice exclusively for searching in hash tables. </p>
+<p>Since the hash implementation only cares about the m_hash field, we can use this to search in hash tables with <a class="reference internal" href="#classparblo_1_1HashedSlice"><span class="std std-ref">HashedSlice</span></a> as keys. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hash</strong> – The hash value of the slice you want to search for. </p>
 </dd>
 </dl>
 </dd></dl>

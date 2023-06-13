@@ -42,6 +42,8 @@ Included By
 -----------
 
 
+- :ref:`file_parblo_defs.hpp`
+
 - :ref:`file_parblo_rolling_hash_rabin_karp.hpp`
 
 
