@@ -68,7 +68,6 @@ struct Sequential {
         std::cout << "is_internal: " << *bt->m_is_internal[0] << std::endl;
 #endif
         RabinKarpMultiMap<Link> links = scan_blocks(bt, s, 0, is_adjacent, block_starts);
-        build_back_block_info(bt, links, 0);
     }
 
   private:
