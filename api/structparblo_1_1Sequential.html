@@ -1,0 +1,517 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Struct Sequential &#8212; parblo  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-treeview/bootstrap-treeview.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/structparblo_1_1Sequential';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Template Struct hash&lt; parblo::HashedSlice &gt;" href="structstd_1_1hash_3_01parblo_1_1HashedSlice_01_4.html" />
+    <link rel="prev" title="Struct Link" href="structparblo_1_1internal_1_1Link.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">parblo  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">parblo</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="library_root.html">parblo API</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="namespace_parblo.html">Namespace parblo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_parblo__internal.html">Namespace parblo::internal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_std.html">Namespace std</a></li>
+<li class="toctree-l2"><a class="reference internal" href="structparblo_1_1internal_1_1Link.html">Struct Link</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Struct Sequential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="structstd_1_1hash_3_01parblo_1_1HashedSlice_01_4.html">Template Struct hash&lt; parblo::HashedSlice &gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classparblo_1_1BlockTree.html">Class BlockTree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classparblo_1_1HashedSlice.html">Class HashedSlice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classparblo_1_1RabinKarp.html">Class RabinKarp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a82a7608700602b87b40fd19e44c63780.html">Typedef parblo::MarkingAccessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a5e2f8f8f1d20f3bdaaef595a837133dd.html">Typedef parblo::PackedIntVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a257163a3e064eb018e02abc78a2b4a85.html">Typedef parblo::RabinKarpMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1aece1277f86a5d776b374894d611a90d5.html">Typedef parblo::RabinKarpMultiMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1ac23d6e1304efd0ad55640c089597ce6b.html">Typedef parblo::RabinKarpSet</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Skadic/parblo" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/api/structparblo_1_1Sequential.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Struct Sequential</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#struct-documentation">Struct Documentation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="section" id="struct-sequential">
+<span id="exhale-struct-structparblo-1-1sequential"></span><h1>Struct Sequential<a class="headerlink" href="#struct-sequential" title="Permalink to this headline">#</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_parblo_block_tree_construction_sequential.hpp.html#file-parblo-block-tree-construction-sequential-hpp"><span class="std std-ref">File sequential.hpp</span></a></p></li>
+</ul>
+<div class="section" id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline">#</a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo10SequentialE">
+<span id="_CPPv3N6parblo10SequentialE"></span><span id="_CPPv2N6parblo10SequentialE"></span><span id="parblo::Sequential"></span><span class="target" id="structparblo_1_1Sequential"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Sequential</span></span></span><a class="headerlink" href="#_CPPv4N6parblo10SequentialE" title="Permalink to this definition">#</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo10Sequential9constructEP9BlockTreeRKNSt6stringE">
+<span id="_CPPv3N6parblo10Sequential9constructEP9BlockTreeRKNSt6stringE"></span><span id="_CPPv2N6parblo10Sequential9constructEP9BlockTreeRKNSt6stringE"></span><span id="parblo::Sequential::construct__BlockTreeP.ssCR"></span><span class="target" id="structparblo_1_1Sequential_1a4f98481b3edc998236c25ea8482ecf91"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">construct</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classparblo_1_1BlockTree.html#_CPPv4N6parblo9BlockTreeE" title="parblo::BlockTree"><span class="n"><span class="pre">BlockTree</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo10Sequential9constructEP9BlockTreeRKNSt6stringE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo10Sequential16scan_block_pairsEP9BlockTreeRKNSt6stringEK6size_tR9BitVectorR15PackedIntVector">
+<span id="_CPPv3N6parblo10Sequential16scan_block_pairsEP9BlockTreeRKNSt6stringEK6size_tR9BitVectorR15PackedIntVector"></span><span id="_CPPv2N6parblo10Sequential16scan_block_pairsEP9BlockTreeRKNSt6stringEK6size_tR9BitVectorR15PackedIntVector"></span><span id="parblo::Sequential::scan_block_pairs__BlockTreeP.ssCR.sC.BitVectorR.PackedIntVectorR"></span><span class="target" id="structparblo_1_1Sequential_1a170136154b26d5d9f8f36379bd808c35"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scan_block_pairs</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classparblo_1_1BlockTree.html#_CPPv4N6parblo9BlockTreeE" title="parblo::BlockTree"><span class="n"><span class="pre">BlockTree</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">level</span></span>, <span class="n"><span class="pre">BitVector</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">is_adjacent</span></span>, <a class="reference internal" href="typedef_namespaceparblo_1a5e2f8f8f1d20f3bdaaef595a837133dd.html#_CPPv4N6parblo15PackedIntVectorE" title="parblo::PackedIntVector"><span class="n"><span class="pre">PackedIntVector</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">block_starts</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo10Sequential16scan_block_pairsEP9BlockTreeRKNSt6stringEK6size_tR9BitVectorR15PackedIntVector" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Scan through the blocks pairwise in order to identify which blocks should be replaced with back blocks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bt</strong> – The block tree under construction. </p></li>
+<li><p><strong>s</strong> – The input string. </p></li>
+<li><p><strong>level</strong> – The current level. </p></li>
+<li><p><strong>is_adjacent</strong> – A bit vector detailing whether two blocks on the current level are adjacent or not. If a <code class="docutils literal notranslate"><span class="pre">is_adjacent[i]</span></code> is one, then blocks i and i+1 are adjacent. </p></li>
+<li><p><strong>block_starts</strong> – A vector holding the start position in the text for each block. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo10Sequential26scan_windows_in_block_pairER9RabinKarpR12RabinKarpMapIiE15MarkingAccessorK6size_t">
+<span id="_CPPv3N6parblo10Sequential26scan_windows_in_block_pairER9RabinKarpR12RabinKarpMapIiE15MarkingAccessorK6size_t"></span><span id="_CPPv2N6parblo10Sequential26scan_windows_in_block_pairER9RabinKarpR12RabinKarpMapIiE15MarkingAccessorK6size_t"></span><span id="parblo::Sequential::scan_windows_in_block_pair__RabinKarpR.RabinKarpMap:i:R.MarkingAccessor.sC"></span><span class="target" id="structparblo_1_1Sequential_1af3c11f7b934d128ae04eaee9cc0a8b35"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scan_windows_in_block_pair</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classparblo_1_1RabinKarp.html#_CPPv4N6parblo9RabinKarpE" title="parblo::RabinKarp"><span class="n"><span class="pre">RabinKarp</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rk</span></span>, <a class="reference internal" href="typedef_namespaceparblo_1a257163a3e064eb018e02abc78a2b4a85.html#_CPPv4I0EN6parblo12RabinKarpMapE" title="parblo::RabinKarpMap"><span class="n"><span class="pre">RabinKarpMap</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">map</span></span>, <a class="reference internal" href="typedef_namespaceparblo_1a82a7608700602b87b40fd19e44c63780.html#_CPPv4N6parblo15MarkingAccessorE" title="parblo::MarkingAccessor"><span class="n"><span class="pre">MarkingAccessor</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">markings</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">block_size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo10Sequential26scan_windows_in_block_pairER9RabinKarpR12RabinKarpMapIiE15MarkingAccessorK6size_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Scan through the windows starting in a block and mark them accordingly if they represent the earliest occurrence of some block hash. </p>
+<p>The supplied <code class="docutils literal notranslate"><a class="reference internal" href="classparblo_1_1RabinKarp.html#classparblo_1_1RabinKarp"><span class="std std-ref"><span class="pre">RabinKarp</span></span></a></code> hasher must be at the start of the block. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rk</strong> – A Rabin-Karp hasher whose state is at the start of the block. </p></li>
+<li><p><strong>map</strong> – The map containing the hashes of block pairs. </p></li>
+<li><p><strong>markings</strong> – Contains the number of marks on each block. </p></li>
+<li><p><strong>block_size</strong> – The size of blocks on the current level. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo10Sequential11scan_blocksEP9BlockTreeRKNSt6stringEK6size_tRK9BitVectorR15PackedIntVector">
+<span id="_CPPv3N6parblo10Sequential11scan_blocksEP9BlockTreeRKNSt6stringEK6size_tRK9BitVectorR15PackedIntVector"></span><span id="_CPPv2N6parblo10Sequential11scan_blocksEP9BlockTreeRKNSt6stringEK6size_tRK9BitVectorR15PackedIntVector"></span><span id="parblo::Sequential::scan_blocks__BlockTreeP.ssCR.sC.BitVectorCR.PackedIntVectorR"></span><span class="target" id="structparblo_1_1Sequential_1a049db288cca86f7e0929533d130ad47a"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scan_blocks</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classparblo_1_1BlockTree.html#_CPPv4N6parblo9BlockTreeE" title="parblo::BlockTree"><span class="n"><span class="pre">BlockTree</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">level</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">BitVector</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">is_adjacent</span></span>, <a class="reference internal" href="typedef_namespaceparblo_1a5e2f8f8f1d20f3bdaaef595a837133dd.html#_CPPv4N6parblo15PackedIntVectorE" title="parblo::PackedIntVector"><span class="n"><span class="pre">PackedIntVector</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">block_starts</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo10Sequential11scan_blocksEP9BlockTreeRKNSt6stringEK6size_tRK9BitVectorR15PackedIntVector" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Scan through the blocks of the given level and determine for each block, if applicable, where it can copy its content from. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bt</strong> – The block tree under construction. </p></li>
+<li><p><strong>s</strong> – The input string. </p></li>
+<li><p><strong>level</strong> – The current level. </p></li>
+<li><p><strong>is_adjacent</strong> – A bit vector detailing whether two blocks on the current level are adjacent or not. If a <code class="docutils literal notranslate"><span class="pre">is_adjacent[i]</span></code> is one, then blocks i and i+1 are adjacent. </p></li>
+<li><p><strong>block_starts</strong> – A vector holding the start position in the text for each block. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo10Sequential21scan_windows_in_blockER9RabinKarpR17RabinKarpMultiMapIN8internal4LinkEEK6size_tK6size_t">
+<span id="_CPPv3N6parblo10Sequential21scan_windows_in_blockER9RabinKarpR17RabinKarpMultiMapIN8internal4LinkEEK6size_tK6size_t"></span><span id="_CPPv2N6parblo10Sequential21scan_windows_in_blockER9RabinKarpR17RabinKarpMultiMapIN8internal4LinkEEK6size_tK6size_t"></span><span id="parblo::Sequential::scan_windows_in_block__RabinKarpR.RabinKarpMultiMap:internal::Link:R.sC.sC"></span><span class="target" id="structparblo_1_1Sequential_1ad6a18e2e6762b7b85c0b9f960832eb1b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scan_windows_in_block</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classparblo_1_1RabinKarp.html#_CPPv4N6parblo9RabinKarpE" title="parblo::RabinKarp"><span class="n"><span class="pre">RabinKarp</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rk</span></span>, <a class="reference internal" href="typedef_namespaceparblo_1aece1277f86a5d776b374894d611a90d5.html#_CPPv4I0EN6parblo17RabinKarpMultiMapE" title="parblo::RabinKarpMultiMap"><span class="n"><span class="pre">RabinKarpMultiMap</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">internal</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="structparblo_1_1internal_1_1Link.html#_CPPv4N6parblo8internal4LinkE" title="parblo::internal::Link"><span class="n"><span class="pre">Link</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">map</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">current_block_index</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">num_hashes</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo10Sequential21scan_windows_in_blockER9RabinKarpR17RabinKarpMultiMapIN8internal4LinkEEK6size_tK6size_t" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo10Sequential7sat_subE6size_t6size_t">
+<span id="_CPPv3N6parblo10Sequential7sat_subE6size_t6size_t"></span><span id="_CPPv2N6parblo10Sequential7sat_subE6size_t6size_t"></span><span id="parblo::Sequential::sat_sub__s.s"></span><span class="target" id="structparblo_1_1Sequential_1afddad627fa46bd76ef6182dac6994524"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sat_sub</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo10Sequential7sat_subE6size_t6size_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Branchless saturating subtraction.</p>
+<p>Source: <a class="reference external" href="http://locklessinc.com/articles/sat_arithmetic/">http://locklessinc.com/articles/sat_arithmetic/</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The minuend. </p></li>
+<li><p><strong>y</strong> – The subtrahend. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>x - y. However, if the result would underflow, returns zero. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="structparblo_1_1internal_1_1Link.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Struct Link</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="structstd_1_1hash_3_01parblo_1_1HashedSlice_01_4.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Template Struct hash&lt; parblo::HashedSlice &gt;</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#struct-documentation">Struct Documentation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Etienne Palanga
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Etienne Palanga.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

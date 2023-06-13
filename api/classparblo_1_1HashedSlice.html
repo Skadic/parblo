@@ -1,0 +1,578 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class HashedSlice &#8212; parblo  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-treeview/bootstrap-treeview.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/classparblo_1_1HashedSlice';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Class RabinKarp" href="classparblo_1_1RabinKarp.html" />
+    <link rel="prev" title="Class BlockTree" href="classparblo_1_1BlockTree.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">parblo  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">parblo</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="library_root.html">parblo API</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="namespace_parblo.html">Namespace parblo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_parblo__internal.html">Namespace parblo::internal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_std.html">Namespace std</a></li>
+<li class="toctree-l2"><a class="reference internal" href="structparblo_1_1internal_1_1Link.html">Struct Link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="structparblo_1_1Sequential.html">Struct Sequential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="structstd_1_1hash_3_01parblo_1_1HashedSlice_01_4.html">Template Struct hash&lt; parblo::HashedSlice &gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classparblo_1_1BlockTree.html">Class BlockTree</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Class HashedSlice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classparblo_1_1RabinKarp.html">Class RabinKarp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a82a7608700602b87b40fd19e44c63780.html">Typedef parblo::MarkingAccessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a5e2f8f8f1d20f3bdaaef595a837133dd.html">Typedef parblo::PackedIntVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1a257163a3e064eb018e02abc78a2b4a85.html">Typedef parblo::RabinKarpMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1aece1277f86a5d776b374894d611a90d5.html">Typedef parblo::RabinKarpMultiMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1ac23d6e1304efd0ad55640c089597ce6b.html">Typedef parblo::RabinKarpSet</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Skadic/parblo" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/api/classparblo_1_1HashedSlice.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Class HashedSlice</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-documentation">Class Documentation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="section" id="class-hashedslice">
+<span id="exhale-class-classparblo-1-1hashedslice"></span><h1>Class HashedSlice<a class="headerlink" href="#class-hashedslice" title="Permalink to this headline">#</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_parblo_rolling_hash_hashed_slice.hpp.html#file-parblo-rolling-hash-hashed-slice-hpp"><span class="std std-ref">File hashed_slice.hpp</span></a></p></li>
+</ul>
+<div class="section" id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">#</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo11HashedSliceE">
+<span id="_CPPv3N6parblo11HashedSliceE"></span><span id="_CPPv2N6parblo11HashedSliceE"></span><span id="parblo::HashedSlice"></span><span class="target" id="classparblo_1_1HashedSlice"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HashedSlice</span></span></span><a class="headerlink" href="#_CPPv4N6parblo11HashedSliceE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>A hashed slice of a text. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo11HashedSlice11HashedSliceEPK7uint8_t6size_t8uint64_t">
+<span id="_CPPv3N6parblo11HashedSlice11HashedSliceEPK7uint8_t6size_t8uint64_t"></span><span id="_CPPv2N6parblo11HashedSlice11HashedSliceEPK7uint8_t6size_t8uint64_t"></span><span id="parblo::HashedSlice::HashedSlice__uint8_tCP.s.uint64_t"></span><span class="target" id="classparblo_1_1HashedSlice_1a02f790ce4a4b609444956764f3a9da6b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HashedSlice</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bytes</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">len</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hash</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo11HashedSlice11HashedSliceEPK7uint8_t6size_t8uint64_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs a new hashed slice from a raw pointer. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bytes</strong> – A pointer to the start of the hashed slice. </p></li>
+<li><p><strong>len</strong> – The length of the hashed slice in bytes. </p></li>
+<li><p><strong>hash</strong> – The hash value of this slice. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo11HashedSlice11HashedSliceEPKc6size_t8uint64_t">
+<span id="_CPPv3N6parblo11HashedSlice11HashedSliceEPKc6size_t8uint64_t"></span><span id="_CPPv2N6parblo11HashedSlice11HashedSliceEPKc6size_t8uint64_t"></span><span id="parblo::HashedSlice::HashedSlice__cCP.s.uint64_t"></span><span class="target" id="classparblo_1_1HashedSlice_1aacedca2e8f1034fbfcd69c4009e82ada"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HashedSlice</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bytes</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">len</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hash</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo11HashedSlice11HashedSliceEPKc6size_t8uint64_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs a new hashed slice from a raw pointer. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bytes</strong> – A pointer to the start of the hashed slice. </p></li>
+<li><p><strong>len</strong> – The length of the hashed slice in bytes. </p></li>
+<li><p><strong>hash</strong> – The hash value of this slice. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo11HashedSlice11HashedSliceERKNSt6stringE6size_t6size_t8uint64_t">
+<span id="_CPPv3N6parblo11HashedSlice11HashedSliceERKNSt6stringE6size_t6size_t8uint64_t"></span><span id="_CPPv2N6parblo11HashedSlice11HashedSliceERKNSt6stringE6size_t6size_t8uint64_t"></span><span id="parblo::HashedSlice::HashedSlice__ssCR.s.s.uint64_t"></span><span class="target" id="classparblo_1_1HashedSlice_1a122198e9cdc76193b0d538687892aef8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HashedSlice</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">start</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">end</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hash</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo11HashedSlice11HashedSliceERKNSt6stringE6size_t6size_t8uint64_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs a new hashed slice from a string and a range. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> – The string in which the hashed range is found. </p></li>
+<li><p><strong>start</strong> – The inclusive start index of the hashed slice inside the string. </p></li>
+<li><p><strong>end</strong> – The exclusive end index of the hashed slice inside the string. </p></li>
+<li><p><strong>hash</strong> – The hash value of this slice. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo11HashedSlice11HashedSliceERKNSt11string_viewE8uint64_t">
+<span id="_CPPv3N6parblo11HashedSlice11HashedSliceERKNSt11string_viewE8uint64_t"></span><span id="_CPPv2N6parblo11HashedSlice11HashedSliceERKNSt11string_viewE8uint64_t"></span><span id="parblo::HashedSlice::HashedSlice__std::string_viewCR.uint64_t"></span><span class="target" id="classparblo_1_1HashedSlice_1ab10fc9d61532d61480611ac82f5a4983"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HashedSlice</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">view</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hash</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo11HashedSlice11HashedSliceERKNSt11string_viewE8uint64_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs a new hashed slice from a string view. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>view</strong> – The string view that represents the hashed slice. </p></li>
+<li><p><strong>hash</strong> – The hash value of this slice. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I_NSt14input_iteratorEEN6parblo11HashedSlice11HashedSliceE2It2It8uint64_t">
+<span id="_CPPv3I_NSt14input_iteratorEEN6parblo11HashedSlice11HashedSliceE2It2It8uint64_t"></span><span id="_CPPv2I_NSt14input_iteratorEEN6parblo11HashedSlice11HashedSliceE2It2It8uint64_t"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">input_iterator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">It</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classparblo_1_1HashedSlice_1aa5ae81dcc8664785432df5a308cc68ff"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HashedSlice</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I_NSt14input_iteratorEEN6parblo11HashedSlice11HashedSliceE2It2It8uint64_t" title="parblo::HashedSlice::HashedSlice::It"><span class="n"><span class="pre">It</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">start</span></span>, <a class="reference internal" href="#_CPPv4I_NSt14input_iteratorEEN6parblo11HashedSlice11HashedSliceE2It2It8uint64_t" title="parblo::HashedSlice::HashedSlice::It"><span class="n"><span class="pre">It</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">end</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hash</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_NSt14input_iteratorEEN6parblo11HashedSlice11HashedSliceE2It2It8uint64_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs a new hashed slice from a pair of iterators. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>It</strong> – The iterator type. </p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>start</strong> – The inclusive start iterator of the hashed slice inside the string. This must be able to be cast to a <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">uint_8</span></code> pointer. </p></li>
+<li><p><strong>end</strong> – The exclusive end iterator of the hashed slice inside the string. </p></li>
+<li><p><strong>hash</strong> – The hash value of this slice. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6parblo11HashedSliceixEK6size_t">
+<span id="_CPPv3NK6parblo11HashedSliceixEK6size_t"></span><span id="_CPPv2NK6parblo11HashedSliceixEK6size_t"></span><span id="parblo::HashedSlice::subscript-operator__sCC"></span><span class="target" id="classparblo_1_1HashedSlice_1a8be6ba1a35231fba29c44c2cb4f1be78"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><a class="headerlink" href="#_CPPv4NK6parblo11HashedSliceixEK6size_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Indexes into the hashed slice and returns the byte at the given index. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>i</strong> – The index to retrieve. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The byte at index <code class="docutils literal notranslate"><span class="pre">i</span></code>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6parblo11HashedSlice5bytesEv">
+<span id="_CPPv3NK6parblo11HashedSlice5bytesEv"></span><span id="_CPPv2NK6parblo11HashedSlice5bytesEv"></span><span id="parblo::HashedSlice::bytesC"></span><span class="target" id="classparblo_1_1HashedSlice_1a91157b57c749d0907f440d75abe475eb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bytes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="p"><span class="pre">*</span></span><a class="headerlink" href="#_CPPv4NK6parblo11HashedSlice5bytesEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Returns the pointer to the underlying slice. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The pointer to the slice. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6parblo11HashedSlice6lengthEv">
+<span id="_CPPv3NK6parblo11HashedSlice6lengthEv"></span><span id="_CPPv2NK6parblo11HashedSlice6lengthEv"></span><span id="parblo::HashedSlice::lengthC"></span><span class="target" id="classparblo_1_1HashedSlice_1a3aa238e8fc49230e965183e5d3c1c996"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">length</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><a class="headerlink" href="#_CPPv4NK6parblo11HashedSlice6lengthEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Returns the length of the hashed slice. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The length of the hashed slice. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6parblo11HashedSlice4hashEv">
+<span id="_CPPv3NK6parblo11HashedSlice4hashEv"></span><span id="_CPPv2NK6parblo11HashedSlice4hashEv"></span><span id="parblo::HashedSlice::hashC"></span><span class="target" id="classparblo_1_1HashedSlice_1ab5551dab0c9e4f1e4c62199ee81919bf"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hash</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><a class="headerlink" href="#_CPPv4NK6parblo11HashedSlice4hashEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Returns the precomputed hash value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The precomputed hash value. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6parblo11HashedSliceeqERK11HashedSlice">
+<span id="_CPPv3NK6parblo11HashedSliceeqERK11HashedSlice"></span><span id="_CPPv2NK6parblo11HashedSliceeqERK11HashedSlice"></span><span id="parblo::HashedSlice::eq-operator__HashedSliceCRC"></span><span class="target" id="classparblo_1_1HashedSlice_1a18b6efa4be95898a31be3cc64790536b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6parblo11HashedSliceE" title="parblo::HashedSlice"><span class="n"><span class="pre">HashedSlice</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><a class="headerlink" href="#_CPPv4NK6parblo11HashedSliceeqERK11HashedSlice" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Compares two hashed slices based on their hash. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> – Another hashed slice. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code>, iff their hashes are equal. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="classparblo_1_1BlockTree.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Class BlockTree</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="classparblo_1_1RabinKarp.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Class RabinKarp</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-documentation">Class Documentation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Etienne Palanga
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Etienne Palanga.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
