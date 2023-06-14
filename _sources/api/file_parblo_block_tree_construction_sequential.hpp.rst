@@ -72,10 +72,3 @@ Classes
 
 - :ref:`exhale_struct_structparblo_1_1Sequential`
 
-
-Defines
--------
-
-
-- :ref:`exhale_define_sequential_8hpp_1ab015983472319c10fa47b457eb4f7a03`
-

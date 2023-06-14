@@ -29,7 +29,7 @@ Program Listing for File sequential.hpp
    
    namespace internal {
    
-   #define PARBLO_DEBUG_PRINTS
+   //#define PARBLO_DEBUG_PRINTS
    
    struct Link {
        using IndexType = uint32_t;
