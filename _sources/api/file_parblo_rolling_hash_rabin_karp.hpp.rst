@@ -30,11 +30,11 @@ Includes
 --------
 
 
+- ``cstddef``
+
 - ``cstdint``
 
 - ``parblo/rolling_hash/hashed_slice.hpp`` (:ref:`file_parblo_rolling_hash_hashed_slice.hpp`)
-
-- ``stddef.h``
 
 - ``string``
 

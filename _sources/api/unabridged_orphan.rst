@@ -35,6 +35,11 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_parblo_block_tree_alphabet_mapping.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_parblo_block_tree_block_tree.hpp.rst
 
 .. toctree::
@@ -61,3 +66,8 @@ Files
    :maxdepth: 5
 
    file_parblo_block_tree_construction_sequential.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_parblo_utils.hpp.rst

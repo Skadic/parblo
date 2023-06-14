@@ -21,6 +21,7 @@ Subdirectories
 Files
 -----
 
+- :ref:`file_parblo_block_tree_alphabet_mapping.hpp`
 - :ref:`file_parblo_block_tree_block_tree.hpp`
 
 

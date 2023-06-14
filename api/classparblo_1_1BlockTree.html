@@ -46,7 +46,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Class HashedSlice" href="classparblo_1_1HashedSlice.html" />
-    <link rel="prev" title="Template Struct hash&lt; parblo::HashedSlice &gt;" href="structstd_1_1hash_3_01parblo_1_1HashedSlice_01_4.html" />
+    <link rel="prev" title="Class AlphabetMapping" href="classparblo_1_1AlphabetMapping.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
   </head>
@@ -132,9 +132,13 @@
 <li class="toctree-l2"><a class="reference internal" href="structparblo_1_1internal_1_1Link.html">Struct Link</a></li>
 <li class="toctree-l2"><a class="reference internal" href="structparblo_1_1Sequential.html">Struct Sequential</a></li>
 <li class="toctree-l2"><a class="reference internal" href="structstd_1_1hash_3_01parblo_1_1HashedSlice_01_4.html">Template Struct hash&lt; parblo::HashedSlice &gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classparblo_1_1AlphabetMapping.html">Class AlphabetMapping</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Class BlockTree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1HashedSlice.html">Class HashedSlice</a></li>
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1RabinKarp.html">Class RabinKarp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function_namespaceparblo_1_1internal_1a00fa5b64d3e2a32dcc1931f5f206a5d2.html">Function parblo::internal::bit_size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function_namespaceparblo_1_1internal_1a49f28a36c5477e404b310f3d763072b7.html">Function parblo::internal::saturating_sub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="define_sequential_8hpp_1ab015983472319c10fa47b457eb4f7a03.html">Define PARBLO_DEBUG_PRINTS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a299477b8d11ef60f7d7777f849490ab2.html">Typedef parblo::internal::BitVector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a5e2f8f8f1d20f3bdaaef595a837133dd.html">Typedef parblo::internal::PackedIntVector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a257163a3e064eb018e02abc78a2b4a85.html">Typedef parblo::internal::RabinKarpMap</a></li>
@@ -333,15 +337,37 @@ document.write(`
 <dd><p>Constructs a block tree with the given parameters and construction algorithm. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Template Parameters</dt>
-<dd class="field-odd"><p><strong>ConstrAlgo</strong> – The construction algorithm to be used. This must be a class with a public method <code class="docutils literal notranslate"><span class="pre">construct(</span><a class="reference internal" href="#classparblo_1_1BlockTree"><span class="std std-ref"><span class="pre">parblo::BlockTree</span></span></a> <span class="pre">*bt,</span> <span class="pre">const</span> <span class="pre">std::string</span> <span class="pre">&amp;s)</span></code> that will construct the block tree. </p>
+<dd class="field-odd"><p><strong>ConstrAlgo</strong> – The construction algorithm to be used. This must be a class with a public method <code class="docutils literal notranslate"><span class="pre">construct(</span><a class="reference internal" href="#classparblo_1_1BlockTree"><span class="std std-ref"><span class="pre">parblo::BlockTree</span></span></a> <span class="pre">*bt,</span> <span class="pre">const</span> <span class="pre">std::string</span> <span class="pre">&amp;s)</span></code> that will construct the block tree.</p>
 </dd>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>input</strong> – The input string. </p></li>
-<li><p><strong>arity</strong> – The arity of each block, save for the root node. </p></li>
-<li><p><strong>leaf_length</strong> – The number of characters each leaf will store. These characters will be stored verbatim. </p></li>
+<li><p><strong>input</strong> – The input string.</p></li>
+<li><p><strong>arity</strong> – The arity of each block, save for the root node.</p></li>
+<li><p><strong>leaf_length</strong> – The number of characters each leaf will store. These characters will be stored verbatim.</p></li>
 <li><p><strong>algo</strong> – An instance of the construction algorithm that should be used. </p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6parblo9BlockTree6heightEv">
+<span id="_CPPv3NK6parblo9BlockTree6heightEv"></span><span id="_CPPv2NK6parblo9BlockTree6heightEv"></span><span id="parblo::BlockTree::heightC"></span><span class="target" id="classparblo_1_1BlockTree_1a1666f467b4b947cd518312ff3fe01043"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">height</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><a class="headerlink" href="#_CPPv4NK6parblo9BlockTree6heightEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Returns the height of the block tree, which is the number of levels. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of levels in the tree. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6parblo9BlockTree11leaf_stringEv">
+<span id="_CPPv3NK6parblo9BlockTree11leaf_stringEv"></span><span id="_CPPv2NK6parblo9BlockTree11leaf_stringEv"></span><span id="parblo::BlockTree::leaf_stringC"></span><span class="target" id="classparblo_1_1BlockTree_1ae8556323dccd784998ec7d86c5b9296f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">leaf_string</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><a class="headerlink" href="#_CPPv4NK6parblo9BlockTree11leaf_stringEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Returns the leaf string. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The leaf string. </p>
 </dd>
 </dl>
 </dd></dl>
@@ -365,12 +391,12 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="structstd_1_1hash_3_01parblo_1_1HashedSlice_01_4.html"
+       href="classparblo_1_1AlphabetMapping.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Template Struct hash&lt; parblo::HashedSlice &gt;</p>
+        <p class="prev-next-title">Class AlphabetMapping</p>
       </div>
     </a>
     <a class="right-next"

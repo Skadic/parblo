@@ -36,9 +36,15 @@ Includes
 
 - ``parblo/defs.hpp`` (:ref:`file_parblo_defs.hpp`)
 
+- ``parblo/utils.hpp`` (:ref:`file_parblo_utils.hpp`)
+
 - ``pasta/bit_vector/bit_vector.hpp``
 
 - ``pasta/bit_vector/support/flat_rank.hpp``
+
+- ``ranges``
+
+- ``sstream``
 
 - ``unordered_map``
 
@@ -65,4 +71,11 @@ Classes
 - :ref:`exhale_struct_structparblo_1_1internal_1_1Link`
 
 - :ref:`exhale_struct_structparblo_1_1Sequential`
+
+
+Defines
+-------
+
+
+- :ref:`exhale_define_sequential_8hpp_1ab015983472319c10fa47b457eb4f7a03`
 

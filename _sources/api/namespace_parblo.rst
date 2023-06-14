@@ -26,6 +26,8 @@ Classes
 
 - :ref:`exhale_struct_structparblo_1_1Sequential`
 
+- :ref:`exhale_class_classparblo_1_1AlphabetMapping`
+
 - :ref:`exhale_class_classparblo_1_1BlockTree`
 
 - :ref:`exhale_class_classparblo_1_1HashedSlice`

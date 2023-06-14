@@ -18,5 +18,6 @@ Files
 -----
 
 - :ref:`file_parblo_defs.hpp`
+- :ref:`file_parblo_utils.hpp`
 
 

@@ -14,15 +14,18 @@ Program Listing for File block_tree.hpp
    
    #include <cassert>
    #include <cmath>
-   #include <vector>
-   #include <string>
    #include <memory>
+   #include <sstream>
+   #include <string>
+   #include <vector>
    
    #include <pasta/bit_vector/bit_vector.hpp>
    #include <word_packing.hpp>
    
+   #include <parblo/block_tree/alphabet_mapping.hpp>
    #include <parblo/defs.hpp>
    #include <parblo/rolling_hash/rabin_karp.hpp>
+   #include <parblo/utils.hpp>
    
    namespace parblo {
    
@@ -43,24 +46,29 @@ Program Listing for File block_tree.hpp
    
        std::vector<Rank> m_is_internal_rank;
    
-   
        std::vector<PackedIntVector> m_source_blocks;
    
        std::vector<PackedIntVector> m_offsets;
    
-       size_t m_input_length;
-       size_t m_leaf_length;
-       size_t m_arity;
+       const size_t m_input_length;
+       const size_t m_leaf_length;
+       const size_t m_arity;
    
        std::vector<size_t> m_level_block_sizes;
        std::vector<size_t> m_level_block_count;
+   
+       AlphabetMapping m_alphabet;
+   
+       PackedIntVector m_leaf_string;
    
        void calculate_level_block_sizes() {
            const auto num_levels   = static_cast<size_t>(std::ceil(
                std::log(static_cast<double>(m_input_length) / static_cast<double>(m_leaf_length)) / std::log(m_arity)));
            const auto float_length = static_cast<double>(m_input_length);
-           m_level_block_sizes     = std::vector<size_t>(num_levels);
-           m_level_block_count     = std::vector<size_t>(num_levels);
+           m_level_block_sizes     = std::vector<size_t>();
+           m_level_block_sizes.reserve(num_levels);
+           m_level_block_count = std::vector<size_t>();
+           m_level_block_count.reserve(num_levels);
    
            size_t block_size = m_leaf_length;
    
@@ -88,13 +96,25 @@ Program Listing for File block_tree.hpp
            m_leaf_length{leaf_length},
            m_arity{arity},
            m_level_block_sizes{0},
-           m_level_block_count{0} {
+           m_level_block_count{0},
+           m_alphabet{input},
+           m_leaf_string{0, internal::bit_size(m_alphabet.size())} {
+           assert(input.length() > 0);
            assert(arity > 1);
            assert(leaf_length > 0);
            calculate_level_block_sizes();
            algo.construct(this, input);
        }
    
+       [[nodiscard]] inline auto height() const -> size_t { return m_level_block_sizes.size(); }
+   
+       [[nodiscard]] inline auto leaf_string() const -> std::string {
+           std::stringstream ss;
+           for (uint8_t c : m_leaf_string) {
+               ss << (char) m_alphabet.to_ascii(c);
+           }
+           return ss.str();
+       }
    };
    
    } // namespace parblo

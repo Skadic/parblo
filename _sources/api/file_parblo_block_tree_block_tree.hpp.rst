@@ -36,11 +36,17 @@ Includes
 
 - ``memory``
 
+- ``parblo/block_tree/alphabet_mapping.hpp`` (:ref:`file_parblo_block_tree_alphabet_mapping.hpp`)
+
 - ``parblo/defs.hpp`` (:ref:`file_parblo_defs.hpp`)
 
 - ``parblo/rolling_hash/rabin_karp.hpp`` (:ref:`file_parblo_rolling_hash_rabin_karp.hpp`)
 
+- ``parblo/utils.hpp`` (:ref:`file_parblo_utils.hpp`)
+
 - ``pasta/bit_vector/bit_vector.hpp``
+
+- ``sstream``
 
 - ``string``
 
