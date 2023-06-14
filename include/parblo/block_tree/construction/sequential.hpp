@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <ranges>
+#include <sstream>
 #include <unordered_map>
 
 #include <pasta/bit_vector/bit_vector.hpp>
@@ -9,12 +11,13 @@
 
 #include <parblo/block_tree/block_tree.hpp>
 #include <parblo/defs.hpp>
+#include <parblo/utils.hpp>
 
 namespace parblo {
 
 namespace internal {
 
-//#define PARBLO_DEBUG_PRINTS
+#define PARBLO_DEBUG_PRINTS
 
 /// \brief Contains information about a link from a back-pointing block to its source block.
 /// This consists of the block's index and the offset from which to copy.
@@ -56,22 +59,92 @@ struct Sequential {
     /// \param bt The block tree to construct.
     /// \param s The string from which to construct the block tree.
     static void construct(BlockTree *bt, const std::string &s) {
-        const size_t    num_blocks = bt->m_level_block_count[0];
-        const size_t    block_size = bt->m_level_block_sizes[0];
-        BitVector       is_adjacent(num_blocks - 1, true);
-        PackedIntVector block_starts(num_blocks, static_cast<size_t>(ceil(log2(s.length()))));
-        for (int i = 0; i < num_blocks; ++i) {
-            block_starts[i] = block_size * i;
+        const size_t               first_level_block_count = bt->m_level_block_count[0];
+        const size_t               first_level_block_size  = bt->m_level_block_sizes[0];
+        std::unique_ptr<BitVector> is_adjacent = std::make_unique<BitVector>(first_level_block_count - 1, true);
+        PackedIntVector            block_starts(first_level_block_count, bit_size(s.length()));
+        for (int i = 0; i < first_level_block_count; ++i) {
+            block_starts[i] = first_level_block_size * i;
         }
-        scan_block_pairs(bt, s, 0, is_adjacent, block_starts);
+
+        for (int level = 0; level < bt->height(); ++level) {
 #ifdef PARBLO_DEBUG_PRINTS
-        std::cout << "is_internal: " << *bt->m_is_internal[0] << std::endl;
+            std::cout << "processing level " << level << std::endl;
 #endif
-        RabinKarpMultiMap<Link> links = scan_blocks(bt, s, 0, is_adjacent, block_starts);
+            scan_block_pairs(bt, s, level, *is_adjacent, block_starts);
+#ifdef PARBLO_DEBUG_PRINTS
+            std::cout << "is_internal: " << *bt->m_is_internal[level] << std::endl;
+#endif
+            RabinKarpMultiMap<Link> links = scan_blocks(bt, s, level, *is_adjacent, block_starts);
+            // Move to the next level
+            if (level < bt->height() - 1) {
+                auto [next_is_adjacent, next_block_starts] = to_next_level(bt, level, *is_adjacent, block_starts);
+                is_adjacent                                = std::move(next_is_adjacent);
+                block_starts                               = std::move(next_block_starts);
+            }
+        }
+
+        for (size_t i = 0; i < block_starts.size(); ++i) {
+            if (!(*bt->m_is_internal.back())[i]) {
+                continue;
+            }
+            for (int j = 0; j < bt->m_leaf_length; ++j) {
+                bt->m_leaf_string.push_back(bt->m_alphabet.to_code(s[block_starts[i] + j]));
+            }
+        }
+#ifdef PARBLO_DEBUG_PRINTS
+        std::cout << "leaf string: " << bt->leaf_string() << std::endl;
+#endif
     }
 
   private:
     using MarkingAccessor = word_packing::internal::PackedFixedWidthIntAccessor<2>;
+
+    static auto to_next_level(BlockTree       *bt,
+                              const size_t     old_level, // l
+                              BitVector       &old_is_adjacent,
+                              PackedIntVector &old_block_starts)
+        -> std::pair<std::unique_ptr<BitVector>, PackedIntVector> {
+        const BitVector &old_is_internal         = *bt->m_is_internal[old_level];
+        const size_t     old_num_blocks          = old_is_internal.size();                // k
+        const size_t     old_num_internal_blocks = bt->m_is_internal_rank[old_level].rank1(old_num_blocks);
+        const size_t     num_blocks              = old_num_internal_blocks * bt->m_arity; // k'j
+        const size_t     block_size              = bt->m_level_block_sizes[old_level + 1];
+        // We need some more space now
+        old_is_adjacent.resize(num_blocks);
+        old_block_starts.resize(num_blocks);
+
+        std::unique_ptr<BitVector> is_adjacent_ptr = std::make_unique<BitVector>(num_blocks - 1, true);
+        BitVector                 &is_adjacent     = *is_adjacent_ptr;
+        PackedIntVector            block_starts(0, old_block_starts.width());
+        block_starts.reserve(num_blocks);
+
+        size_t internal_block_counter = 0;
+        for (size_t i = 0; i < old_num_blocks; ++i) {
+            if (!old_is_internal[i]) {
+                continue;
+            }
+
+            if (!old_is_adjacent[i] || !old_is_internal[i + 1]) {
+                is_adjacent[(internal_block_counter + 1) * bt->m_arity - 1] = false;
+            }
+            const size_t block_start = old_block_starts[i];
+            for (int j = 0; j < bt->m_arity; ++j) {
+                block_starts.push_back(block_start + j * block_size);
+            }
+            internal_block_counter++;
+        }
+
+#ifdef PARBLO_DEBUG_PRINTS
+        std::cout << "next_is_adjacent: " << is_adjacent << std::endl;
+        std::cout << "next_block_starts(" << block_starts.size() << "): ";
+        for (auto block_start : block_starts) {
+            std::cout << block_start << ", ";
+        }
+        std::cout << std::endl;
+#endif
+        return {std::move(is_adjacent_ptr), block_starts};
+    }
 
     /// Scan through the blocks pairwise in order to identify which blocks should be replaced with back blocks.
     ///
@@ -138,7 +211,7 @@ struct Sequential {
         BitVector &is_internal      = *bt->m_is_internal.back();
         is_internal[0]              = true;
         is_internal[num_blocks - 1] = markings[num_blocks - 1] != 1;
-        for (int i = 0; i < num_blocks; ++i) {
+        for (int i = 0; i < num_blocks - 1; ++i) {
             is_internal[i] = markings[i] != 2;
         }
         bt->m_is_internal_rank.emplace_back(is_internal);
@@ -199,18 +272,19 @@ struct Sequential {
         const size_t block_size = bt->m_level_block_sizes[level];
         const size_t num_blocks = bt->m_level_block_count[level];
 
-        const Rank  &is_internal_rank    = bt->m_is_internal_rank[level];
-        const size_t num_internal_blocks = is_internal_rank.rank1(num_blocks);
-        const size_t num_back_blocks     = num_blocks - num_internal_blocks;
+        const BitVector &is_internal         = *bt->m_is_internal[level];
+        const Rank      &is_internal_rank    = bt->m_is_internal_rank[level];
+        const size_t     num_internal_blocks = is_internal_rank.rank1(num_blocks);
+        const size_t     num_back_blocks     = num_blocks - num_internal_blocks;
 
         // Create new vectors in m_source_blocks and m_offsets to hold values for this level.
         {
-            const size_t block_size_bits     = static_cast<size_t>(ceil(log2(block_size)));
-            const size_t internal_block_bits = static_cast<size_t>(ceil(log2(num_internal_blocks)));
+            const auto block_size_bits     = bit_size(block_size);
+            const auto internal_block_bits = bit_size(num_internal_blocks);
 
             // Add new packed int-vectors
-            bt->m_source_blocks.push_back(PackedIntVector(num_back_blocks, internal_block_bits));
-            bt->m_offsets.push_back(PackedIntVector(num_back_blocks, block_size_bits));
+            bt->m_source_blocks.emplace_back(num_back_blocks, internal_block_bits);
+            bt->m_offsets.emplace_back(num_back_blocks, block_size_bits);
         }
 
         PackedIntVector &source_blocks = bt->m_source_blocks.back();
@@ -218,14 +292,14 @@ struct Sequential {
 
         // A map containing hashed slices mapped to a link to their (potential) source block.
         RabinKarpMultiMap<Link> links(num_blocks - 1);
-        for (int i = 0; i < num_blocks; ++i) {
+        for (size_t i = 0; i < num_blocks; ++i) {
             const HashedSlice hash = RabinKarp(s.c_str() + block_starts[i], 0, block_size).hashed_slice();
             links.insert({hash, Link(i)});
         }
 
         // Hash every window and find the first occurrences for every block.
         RabinKarp rk(s.c_str(), s.length(), block_size);
-        for (int current_block_index = 0; current_block_index < num_blocks; ++current_block_index) {
+        for (size_t current_block_index = 0; current_block_index < num_blocks; ++current_block_index) {
             // TODO: We could skip this loop iteration if the current block is a back block
             //  Nothing is ever going to point to this anyway.
             // This is true iff there exists a next block and it is not adjacent
@@ -237,16 +311,18 @@ struct Sequential {
             const size_t num_hashes =
                 next_block_not_adjacent
                     ? 1
-                    : block_size - sat_sub(block_starts[current_block_index] + block_size, s.length());
+                    : block_size - saturating_sub(block_starts[current_block_index] + block_size, s.length());
 
             scan_windows_in_block(rk,
                                   links,
                                   is_internal_rank.rank1(current_block_index),
                                   num_hashes,
+                                  is_internal,
                                   is_internal_rank,
                                   source_blocks,
                                   offsets);
 
+            // If there is a next block and it is not adjacent, we need to move the Rabin-Karp hasher to the next block
             if (next_block_not_adjacent) {
                 rk = RabinKarp(s.c_str() + block_starts[current_block_index + 1], 0, block_size);
             }
@@ -290,6 +366,7 @@ struct Sequential {
                                              RabinKarpMultiMap<Link> &links,
                                              const size_t             current_block_internal_index,
                                              const size_t             num_hashes,
+                                             const BitVector         &is_internal,
                                              const Rank              &is_internal_rank,
                                              PackedIntVector         &source_blocks,
                                              PackedIntVector         &offsets) {
@@ -297,35 +374,22 @@ struct Sequential {
             const HashedSlice current_hash = rk.hashed_slice();
             // Find all blocks in the multimap that match our hash
             const auto &[start, end] = links.equal_range(current_hash);
-            for (auto elem = start; elem != end; ++elem) {
-                const HashedSlice & found_hash = elem->first;
-                Link        &link        = elem->second;
-                const size_t block_index = link.block_index;
+            for (auto &[found_hash, link] : std::ranges::subrange(start, end)) {
                 // In this case, our current position is an earlier occurrence and has no other link set yet!
                 if (current_hash.bytes() < found_hash.bytes() && !link.is_valid()) {
                     // Get the index of the back block only considering back blocks
-                    const size_t back_block_index   = is_internal_rank.rank0(link.block_index);
-                    link.source_block_index         = current_block_internal_index;
-                    link.offset                     = offset;
-                    source_blocks[back_block_index] = current_block_internal_index;
-                    offsets[back_block_index]       = offset;
+                    const size_t back_block_index = is_internal_rank.rank0(link.block_index);
+                    link.source_block_index       = current_block_internal_index;
+                    link.offset                   = offset;
+                    // There is only space for non-internal blocks in these vectors
+                    if (!is_internal[link.block_index]) {
+                        source_blocks[back_block_index] = current_block_internal_index;
+                        offsets[back_block_index]       = offset;
+                    }
                 }
             }
             rk.advance();
         }
-    }
-
-    /// Branchless saturating subtraction.
-    ///
-    /// Source: http://locklessinc.com/articles/sat_arithmetic/
-    ///
-    /// \param x The minuend.
-    /// \param y The subtrahend.
-    /// \return x - y. However, if the result would underflow, returns zero.
-    static inline size_t sat_sub(size_t x, size_t y) {
-        size_t res = x - y;
-        res &= -(res <= x);
-        return res;
     }
 };
 

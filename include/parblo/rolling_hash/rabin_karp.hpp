@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include <stddef.h>
+#include <cstddef>
 #include <string>
 
 #include <parblo/rolling_hash/hashed_slice.hpp>
