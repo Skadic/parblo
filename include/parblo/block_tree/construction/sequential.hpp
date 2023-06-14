@@ -63,11 +63,11 @@ struct Sequential {
         const size_t               first_level_block_size  = bt->m_level_block_sizes[0];
         std::unique_ptr<BitVector> is_adjacent = std::make_unique<BitVector>(first_level_block_count - 1, true);
         PackedIntVector            block_starts(first_level_block_count, bit_size(s.length()));
-        for (int i = 0; i < first_level_block_count; ++i) {
+        for (size_t i = 0; i < first_level_block_count; ++i) {
             block_starts[i] = first_level_block_size * i;
         }
 
-        for (int level = 0; level < bt->height(); ++level) {
+        for (size_t level = 0; level < bt->height(); ++level) {
 #ifdef PARBLO_DEBUG_PRINTS
             std::cout << "processing level " << level << std::endl;
 #endif
@@ -88,7 +88,7 @@ struct Sequential {
             if (!(*bt->m_is_internal.back())[i]) {
                 continue;
             }
-            for (int j = 0; j < bt->m_leaf_length; ++j) {
+            for (size_t j = 0; j < bt->m_leaf_length; ++j) {
                 bt->m_leaf_string.push_back(bt->m_alphabet.to_code(s[block_starts[i] + j]));
             }
         }
@@ -129,7 +129,7 @@ struct Sequential {
                 is_adjacent[(internal_block_counter + 1) * bt->m_arity - 1] = false;
             }
             const size_t block_start = old_block_starts[i];
-            for (int j = 0; j < bt->m_arity; ++j) {
+            for (size_t j = 0; j < bt->m_arity; ++j) {
                 block_starts.push_back(block_start + j * block_size);
             }
             internal_block_counter++;
@@ -178,7 +178,7 @@ struct Sequential {
 
         {
             RabinKarp rk(s.c_str(), 0, pair_size);
-            for (int i = 0; i < num_blocks - 1; ++i) {
+            for (size_t i = 0; i < num_blocks - 1; ++i) {
                 // If the next block is not adjacent, we must relocate the hasher to the next pair of adjacent blocks.
                 if (!is_adjacent[i]) {
                     // Find the next adjacent block
@@ -200,7 +200,7 @@ struct Sequential {
 
         // Hash every window and determine for all block pairs whether they have previous occurrences.
         RabinKarp rk(s.c_str(), s.length(), pair_size);
-        for (int i = 0; i < num_blocks; ++i) {
+        for (size_t i = 0; i < num_blocks; ++i) {
             if (!is_adjacent[i]) {
                 continue;
             }
@@ -211,7 +211,7 @@ struct Sequential {
         BitVector &is_internal      = *bt->m_is_internal.back();
         is_internal[0]              = true;
         is_internal[num_blocks - 1] = markings[num_blocks - 1] != 1;
-        for (int i = 0; i < num_blocks - 1; ++i) {
+        for (size_t i = 0; i < num_blocks - 1; ++i) {
             is_internal[i] = markings[i] != 2;
         }
         bt->m_is_internal_rank.emplace_back(is_internal);
@@ -237,7 +237,7 @@ struct Sequential {
                                                   RabinKarpMap<int> &map,
                                                   MarkingAccessor    markings,
                                                   const size_t       block_size) {
-        for (int i = 0; i < block_size; ++i) {
+        for (size_t i = 0; i < block_size; ++i) {
             HashedSlice current_hash = rk.hashed_slice();
             // Find the hash of the current window among the hashed block pairs.
             auto found_hash_ptr = map.find(current_hash);
@@ -370,7 +370,7 @@ struct Sequential {
                                              const Rank              &is_internal_rank,
                                              PackedIntVector         &source_blocks,
                                              PackedIntVector         &offsets) {
-        for (int offset = 0; offset < num_hashes; ++offset) {
+        for (size_t offset = 0; offset < num_hashes; ++offset) {
             const HashedSlice current_hash = rk.hashed_slice();
             // Find all blocks in the multimap that match our hash
             const auto &[start, end] = links.equal_range(current_hash);

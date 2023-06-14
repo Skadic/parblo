@@ -4,7 +4,6 @@
 
 #include <filesystem>
 #include <fstream>
-#include <iostream>
 #include <parblo/rolling_hash/hashed_slice.hpp>
 #include <sstream>
 #include <string_view>
@@ -14,7 +13,7 @@ std::string RESOURCE_PATH = "./resources/";
 
 using namespace parblo;
 
-std::string read_res_file(std::string path) {
+std::string read_res_file(const std::string &path) {
     std::ifstream     ifs(std::filesystem::canonical(RESOURCE_PATH + path));
     std::stringstream buf;
     buf << ifs.rdbuf();
@@ -46,7 +45,6 @@ TEST_CASE("rabin karp large", "[rabin karp]") {
     const std::string file         = GENERATE("as.txt", "dna.txt", "einstein.txt");
     const std::string file_content = read_res_file(file);
     REQUIRE_FALSE(file_content.empty());
-    const size_t len         = file_content.length();
     const size_t window_size = 32;
 
     std::unordered_set<std::string_view> normal_hash_map;
@@ -65,7 +63,6 @@ TEST_CASE("rabin karp large", "[rabin karp]") {
 /// and different hashes for different substrings
 TEST_CASE("rabin karp equal substrings", "[rabin karp]") {
     const std::string s           = "hellohello";
-    const size_t      len         = s.length();
     const size_t      window_size = 5;
 
     RabinKarp         rk(s, 0, window_size);
