@@ -65,4 +65,7 @@ target_compile_options(parblo INTERFACE -Wall -Werror=return-type)
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   enable_testing()
   add_subdirectory(test)
+
+  add_executable(build_bt src/build_bt.cpp)
+  target_link_libraries(build_bt PRIVATE parblo)
 endif()

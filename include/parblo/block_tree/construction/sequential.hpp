@@ -17,7 +17,7 @@ namespace parblo {
 
 namespace internal {
 
-#define PARBLO_DEBUG_PRINTS
+//#define PARBLO_DEBUG_PRINTS
 
 /// \brief Contains information about a link from a back-pointing block to its source block.
 /// This consists of the block's index and the offset from which to copy.
