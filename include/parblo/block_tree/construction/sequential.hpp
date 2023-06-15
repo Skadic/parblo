@@ -69,8 +69,8 @@ struct Sequential {
         }
 
         for (size_t level = 0; level < bt->height(); ++level) {
+            std::cout << "processing level " << level << " / " << bt->height()-1 << " --------------------------------------" << std::endl;
 #ifdef PARBLO_DEBUG_PRINTS
-            std::cout << "processing level " << level << " --------------------------------------" << std::endl;
             std::cout << "is_adjacent: " << *is_adjacent << std::endl;
             std::cout << "block_starts(" << block_starts.size() << "): ";
             for (auto block_start : block_starts) {
@@ -191,6 +191,12 @@ struct Sequential {
         const size_t num_blocks = block_starts.size();
         const size_t pair_size  = 2 * block_size;
 
+        if (num_blocks < 4) {
+            bt->m_is_internal.push_back(std::make_unique<BitVector>(num_blocks, true));
+            bt->m_is_internal_rank.emplace_back(*bt->m_is_internal.back());
+            return;
+        }
+
         // A map containing hashed slices mapped to their index of the pair's first block
         RabinKarpMap<int> map(num_blocks - 1);
 
@@ -204,14 +210,15 @@ struct Sequential {
         auto markings = word_packing::accessor<2>(marking_buffer.data());
 
         {
-            RabinKarp rk(s.c_str(), 0, pair_size);
+            RabinKarp rk(s.c_str(), s.length(), pair_size);
             for (size_t i = 0; i < num_blocks - 1; ++i) {
                 // If the next block is not adjacent, we must relocate the hasher to the next pair of adjacent blocks.
                 if (!is_adjacent[i]) {
                     // Find the next adjacent block
                     while (!is_adjacent[++i] && i < num_blocks - 1)
                         ;
-                    rk = RabinKarp(s.c_str() + block_starts[i], 0, pair_size);
+                    // rk = RabinKarp(s.c_str() + block_starts[i], 0, pair_size);
+                    rk = RabinKarp(s, block_starts[i], pair_size);
                     continue;
                 }
                 HashedSlice hash          = rk.hashed_slice();
@@ -320,8 +327,12 @@ struct Sequential {
         // A map containing hashed slices mapped to a link to their (potential) source block.
         RabinKarpMultiMap<Link> links(num_blocks - 1);
         for (size_t i = 0; i < num_blocks; ++i) {
-            const HashedSlice hash = RabinKarp(s.c_str() + block_starts[i], 0, block_size).hashed_slice();
+            const HashedSlice hash = RabinKarp(s, block_starts[i], block_size).hashed_slice();
             links.insert({hash, Link(i)});
+        }
+
+        if (num_blocks < 4) {
+            return links;
         }
 
         // Hash every window and find the first occurrences for every block.
@@ -354,7 +365,7 @@ struct Sequential {
 
             // If there is a next block and it is not adjacent, we need to move the Rabin-Karp hasher to the next block
             if (next_block_not_adjacent) {
-                rk = RabinKarp(s.c_str() + block_starts[current_block_index + 1], 0, block_size);
+                rk = RabinKarp(s, block_starts[current_block_index + 1], block_size);
             }
         }
 #ifdef PARBLO_DEBUG_PRINTS

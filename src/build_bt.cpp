@@ -10,6 +10,7 @@
 int main(int argc, const char **argv) {
     if (argc != 2) {
         std::cout << "please input file" << std::endl;
+        return 0;
     }
     std::string       input;
     std::ifstream     t(argv[1]);
@@ -17,7 +18,6 @@ int main(int argc, const char **argv) {
     buffer << t.rdbuf();
     input = buffer.str();
 
-    parblo::BlockTree bt(input, 2, 2, parblo::Sequential());
-
-    std::cout << input << std::endl;
+    parblo::BlockTree bt(input, 16, 32, parblo::Sequential());
+    std::cout << "bt size: " << bt.space_consumption() << " bytes" << std::endl;
 }

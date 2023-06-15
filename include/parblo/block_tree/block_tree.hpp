@@ -133,6 +133,38 @@ class BlockTree {
         }
         return ss.str();
     }
+
+    /// \brief Returns the length of the input string.
+    /// \return The number of characters in the input string.
+    [[nodiscard]] inline auto input_length() const -> size_t { return m_input_length; }
+
+    /// \brief Calculates the space consumption of this block tree in working memory.
+    /// \return The approximate number of bytes this block tree occupies.
+    [[nodiscard("space consumption calculated but unused")]] inline auto space_consumption() const -> size_t {
+        size_t size = 0;
+        for (const auto &bitvec : m_is_internal) {
+            size += bitvec->data().size() * sizeof(BitVector::RawDataType);
+        }
+        for (const auto &rank_ds : m_is_internal_rank) {
+            size += rank_ds.space_usage();
+        }
+        for (const auto &vec : m_source_blocks) {
+            size += vec.size() * vec.width() / 8;
+        }
+        for (const auto &vec : m_offsets) {
+            size += vec.size() * vec.width() / 8;
+        }
+        size += sizeof(m_input_length);
+        size += sizeof(m_leaf_length);
+        size += sizeof(m_arity);
+        size += sizeof(m_root_arity);
+
+        size += m_level_block_sizes.size() * sizeof(decltype(m_level_block_sizes)::value_type);
+        size += sizeof(m_alphabet);
+        size += m_leaf_string.size() * m_leaf_string.width() / 8;
+
+        return size;
+    }
 };
 
 } // namespace parblo

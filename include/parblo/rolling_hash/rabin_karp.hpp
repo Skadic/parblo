@@ -71,7 +71,9 @@ class RabinKarp {
     /// @param start The start index from which the hasher will start hashing end of the string.
     /// @param window_size The number of characters each rolling hash will be hashing.
     inline RabinKarp(const std::string &source, const size_t start, const size_t window_size) :
-        RabinKarp(source.c_str() + start, source.length() - start, window_size) {}
+        RabinKarp(source.c_str(), source.length(), window_size) {
+        m_offset = start;
+    }
 
     /// \brief Copy constructor
     inline RabinKarp(const RabinKarp &other) = default;
@@ -90,9 +92,9 @@ class RabinKarp {
 
     /// @brief Advances the hashed by one byte and recalculates the hash value.
     /// @return The hash value after advancing.
-    auto advance() -> uint64_t {
-        uint8_t outchar = m_source[m_offset];
-        uint8_t inchar  = m_source[m_offset + m_window_size];
+    auto __attribute__ ((noinline)) advance() -> uint64_t {
+        const uint8_t outchar = m_source[m_offset];
+        const uint8_t inchar  = m_source[std::min(m_offset + m_window_size,  m_string_len)];
 
         m_hash += PRIME;
         m_hash -= (m_remainder * outchar) % PRIME;
