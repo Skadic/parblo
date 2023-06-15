@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <iostream>
 #include <ranges>
 #include <sstream>
@@ -17,7 +18,7 @@ namespace parblo {
 
 namespace internal {
 
-//#define PARBLO_DEBUG_PRINTS
+// #define PARBLO_DEBUG_PRINTS
 
 /// \brief Contains information about a link from a back-pointing block to its source block.
 /// This consists of the block's index and the offset from which to copy.
@@ -59,7 +60,7 @@ struct Sequential {
     /// \param bt The block tree to construct.
     /// \param s The string from which to construct the block tree.
     static void construct(BlockTree *bt, const std::string &s) {
-        const size_t               first_level_block_count = bt->m_level_block_count[0];
+        const size_t               first_level_block_count = bt->m_root_arity;
         const size_t               first_level_block_size  = bt->m_level_block_sizes[0];
         std::unique_ptr<BitVector> is_adjacent = std::make_unique<BitVector>(first_level_block_count - 1, true);
         PackedIntVector            block_starts(first_level_block_count, bit_size(s.length()));
@@ -69,7 +70,21 @@ struct Sequential {
 
         for (size_t level = 0; level < bt->height(); ++level) {
 #ifdef PARBLO_DEBUG_PRINTS
-            std::cout << "processing level " << level << std::endl;
+            std::cout << "processing level " << level << " --------------------------------------" << std::endl;
+            std::cout << "is_adjacent: " << *is_adjacent << std::endl;
+            std::cout << "block_starts(" << block_starts.size() << "): ";
+            for (auto block_start : block_starts) {
+                std::cout << block_start << ", ";
+            }
+            std::cout << std::endl;
+#endif
+#ifdef NDEBUG
+            for (size_t start : block_starts) {
+                if (start >= s.length()) {
+                    std::cerr << "ono" << std::endl;
+                    return;
+                }
+            }
 #endif
             scan_block_pairs(bt, s, level, *is_adjacent, block_starts);
 #ifdef PARBLO_DEBUG_PRINTS
@@ -78,7 +93,7 @@ struct Sequential {
             RabinKarpMultiMap<Link> links = scan_blocks(bt, s, level, *is_adjacent, block_starts);
             // Move to the next level
             if (level < bt->height() - 1) {
-                auto [next_is_adjacent, next_block_starts] = to_next_level(bt, level, *is_adjacent, block_starts);
+                auto [next_is_adjacent, next_block_starts] = to_next_level(bt, s, level, *is_adjacent, block_starts);
                 is_adjacent                                = std::move(next_is_adjacent);
                 block_starts                               = std::move(next_block_starts);
             }
@@ -100,19 +115,28 @@ struct Sequential {
   private:
     using MarkingAccessor = word_packing::internal::PackedFixedWidthIntAccessor<2>;
 
-    static auto to_next_level(BlockTree       *bt,
-                              const size_t     old_level, // l
-                              BitVector       &old_is_adjacent,
-                              PackedIntVector &old_block_starts)
+    /// \brief Generates the bit vector containing which nodes are adjacent and a vector of block start positions for
+    /// the next level, given the values from the previous level. \param bt The block tree under construction. \param s
+    /// The string from which the block tree is being constructed. \param old_level The index of the previous level.
+    /// Level 0 is the root node. \param old_is_adjacent The `is_adjacent` bit vector of the previous level. \param
+    /// old_block_starts The `block_starts` vector of the previous level. \return A pair of a new `is_adjacent` bit
+    /// vector and a new `block_starts` bit vector.
+    static auto to_next_level(const BlockTree       *bt,
+                              const std::string     &s,
+                              const size_t           old_level, // l
+                              const BitVector       &old_is_adjacent,
+                              const PackedIntVector &old_block_starts)
         -> std::pair<std::unique_ptr<BitVector>, PackedIntVector> {
         const BitVector &old_is_internal         = *bt->m_is_internal[old_level];
-        const size_t     old_num_blocks          = old_is_internal.size();                // k
+        const size_t     old_num_blocks          = old_is_internal.size(); // k
         const size_t     old_num_internal_blocks = bt->m_is_internal_rank[old_level].rank1(old_num_blocks);
-        const size_t     num_blocks              = old_num_internal_blocks * bt->m_arity; // k'j
-        const size_t     block_size              = bt->m_level_block_sizes[old_level + 1];
-        // We need some more space now
-        old_is_adjacent.resize(num_blocks);
-        old_block_starts.resize(num_blocks);
+
+        const size_t block_size = bt->m_level_block_sizes[old_level + 1];
+        // The last block might not have all m_arity children.
+        // We only want children that start before the end of the string
+        const size_t old_last_block_num_children = static_cast<size_t>(
+            ceil((s.length() - old_block_starts[old_block_starts.size() - 1]) / static_cast<double>(block_size)));
+        const size_t num_blocks = (old_num_internal_blocks - 1) * bt->m_arity + old_last_block_num_children; // k'j
 
         std::unique_ptr<BitVector> is_adjacent_ptr = std::make_unique<BitVector>(num_blocks - 1, true);
         BitVector                 &is_adjacent     = *is_adjacent_ptr;
@@ -120,11 +144,13 @@ struct Sequential {
         block_starts.reserve(num_blocks);
 
         size_t internal_block_counter = 0;
-        for (size_t i = 0; i < old_num_blocks; ++i) {
+        for (size_t i = 0; i < old_num_blocks - 1; ++i) {
             if (!old_is_internal[i]) {
                 continue;
             }
 
+            // If this parent's successor is not adjacent or the parent's successor is a back-pointer,
+            // Then the last child of the block will also not be adjacent to its succcessor
             if (!old_is_adjacent[i] || !old_is_internal[i + 1]) {
                 is_adjacent[(internal_block_counter + 1) * bt->m_arity - 1] = false;
             }
@@ -135,14 +161,15 @@ struct Sequential {
             internal_block_counter++;
         }
 
-#ifdef PARBLO_DEBUG_PRINTS
-        std::cout << "next_is_adjacent: " << is_adjacent << std::endl;
-        std::cout << "next_block_starts(" << block_starts.size() << "): ";
-        for (auto block_start : block_starts) {
-            std::cout << block_start << ", ";
+        // We have to handle the last block separately, since it might not have exactly m_arity children
+
+        if (old_is_internal[old_num_blocks - 1]) {
+            const size_t block_start = old_block_starts[old_num_blocks - 1];
+            for (size_t j = 0; j < old_last_block_num_children; ++j) {
+                block_starts.push_back(block_start + j * block_size);
+            }
         }
-        std::cout << std::endl;
-#endif
+
         return {std::move(is_adjacent_ptr), block_starts};
     }
 
@@ -161,7 +188,7 @@ struct Sequential {
                                  BitVector             &is_adjacent,
                                  const PackedIntVector &block_starts) {
         const size_t block_size = bt->m_level_block_sizes[level];
-        const size_t num_blocks = bt->m_level_block_count[level];
+        const size_t num_blocks = block_starts.size();
         const size_t pair_size  = 2 * block_size;
 
         // A map containing hashed slices mapped to their index of the pair's first block
@@ -270,7 +297,7 @@ struct Sequential {
                             const BitVector   &is_adjacent,
                             PackedIntVector   &block_starts) -> RabinKarpMultiMap<Link> {
         const size_t block_size = bt->m_level_block_sizes[level];
-        const size_t num_blocks = bt->m_level_block_count[level];
+        const size_t num_blocks = block_starts.size();
 
         const BitVector &is_internal         = *bt->m_is_internal[level];
         const Rank      &is_internal_rank    = bt->m_is_internal_rank[level];
@@ -300,8 +327,11 @@ struct Sequential {
         // Hash every window and find the first occurrences for every block.
         RabinKarp rk(s.c_str(), s.length(), block_size);
         for (size_t current_block_index = 0; current_block_index < num_blocks; ++current_block_index) {
-            // TODO: We could skip this loop iteration if the current block is a back block
-            //  Nothing is ever going to point to this anyway.
+            // We can skip this loop iteration if the current block is a back block
+            // Nothing is ever going to point to this anyway.
+            if (!is_internal[current_block_index]) {
+                continue;
+            }
             // This is true iff there exists a next block and it is not adjacent
             const bool next_block_not_adjacent =
                 current_block_index < num_blocks - 1 && !is_adjacent[current_block_index];
@@ -362,14 +392,14 @@ struct Sequential {
     ///     (with respect to back blocks only) of its source. This is populated by this function.
     /// \param offsets For each back block on the current level stores offset into its source block from which it will
     ///     copy its content. This is populated by this function.
-    static inline void scan_windows_in_block(RabinKarp               &rk,
-                                             RabinKarpMultiMap<Link> &links,
-                                             const size_t             current_block_internal_index,
-                                             const size_t             num_hashes,
-                                             const BitVector         &is_internal,
-                                             const Rank              &is_internal_rank,
-                                             PackedIntVector         &source_blocks,
-                                             PackedIntVector         &offsets) {
+    static void scan_windows_in_block(RabinKarp               &rk,
+                                      RabinKarpMultiMap<Link> &links,
+                                      const size_t             current_block_internal_index,
+                                      const size_t             num_hashes,
+                                      const BitVector         &is_internal,
+                                      const Rank              &is_internal_rank,
+                                      PackedIntVector         &source_blocks,
+                                      PackedIntVector         &offsets) {
         for (size_t offset = 0; offset < num_hashes; ++offset) {
             const HashedSlice current_hash = rk.hashed_slice();
             // Find all blocks in the multimap that match our hash
@@ -377,10 +407,10 @@ struct Sequential {
             for (auto &[found_hash, link] : std::ranges::subrange(start, end)) {
                 // In this case, our current position is an earlier occurrence and has no other link set yet!
                 if (current_hash.bytes() < found_hash.bytes() && !link.is_valid()) {
-                    // Get the index of the back block only considering back blocks
                     const size_t back_block_index = is_internal_rank.rank0(link.block_index);
-                    link.source_block_index       = current_block_internal_index;
-                    link.offset                   = offset;
+                    // Get the index of the back block only considering back blocks
+                    link.source_block_index = current_block_internal_index;
+                    link.offset             = offset;
                     // There is only space for non-internal blocks in these vectors
                     if (!is_internal[link.block_index]) {
                         source_blocks[back_block_index] = current_block_internal_index;

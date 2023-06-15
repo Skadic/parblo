@@ -60,11 +60,11 @@ class BlockTree {
     const size_t m_leaf_length;
     /// \brief The arity for each internal node except for the root.
     const size_t m_arity;
+    /// \brief The arity of the root node.
+    size_t m_root_arity;
 
     /// \brief Sizes of a block for each level. Index 0 = most shallow level
     std::vector<size_t> m_level_block_sizes;
-    /// \brief The number blocks for each level. Index 0 = most shallow level
-    std::vector<size_t> m_level_block_count;
 
     /// \brief Maps the alphabet to a smaller value range.
     AlphabetMapping m_alphabet;
@@ -78,20 +78,16 @@ class BlockTree {
         const auto float_length = static_cast<double>(m_input_length);
         m_level_block_sizes     = std::vector<size_t>();
         m_level_block_sizes.reserve(num_levels);
-        m_level_block_count = std::vector<size_t>();
-        m_level_block_count.reserve(num_levels);
 
         size_t block_size = m_leaf_length;
 
         while (block_size < m_input_length) {
             m_level_block_sizes.push_back(block_size);
-            m_level_block_count.push_back(
-                static_cast<size_t>(std::ceil(float_length / static_cast<double>(block_size))));
             block_size *= m_arity;
         }
+        m_root_arity = static_cast<size_t>(std::ceil(float_length / static_cast<double>(block_size / m_arity)));
 
         std::reverse(m_level_block_sizes.begin(), m_level_block_sizes.end());
-        std::reverse(m_level_block_count.begin(), m_level_block_count.end());
 
         //!("sizes: {:?}", self.level_block_sizes);
         // println!("count: {:?}", self.level_block_count);
@@ -115,7 +111,6 @@ class BlockTree {
         m_leaf_length{leaf_length},
         m_arity{arity},
         m_level_block_sizes{0},
-        m_level_block_count{0},
         m_alphabet{input},
         m_leaf_string{0, internal::bit_size(m_alphabet.size())} {
         assert(input.length() > 0);
