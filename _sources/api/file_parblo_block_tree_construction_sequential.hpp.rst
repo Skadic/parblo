@@ -30,6 +30,8 @@ Includes
 --------
 
 
+- ``cmath``
+
 - ``iostream``
 
 - ``parblo/block_tree/block_tree.hpp`` (:ref:`file_parblo_block_tree_block_tree.hpp`)

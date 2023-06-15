@@ -53,9 +53,9 @@ Program Listing for File block_tree.hpp
        const size_t m_input_length;
        const size_t m_leaf_length;
        const size_t m_arity;
+       size_t m_root_arity;
    
        std::vector<size_t> m_level_block_sizes;
-       std::vector<size_t> m_level_block_count;
    
        AlphabetMapping m_alphabet;
    
@@ -67,20 +67,16 @@ Program Listing for File block_tree.hpp
            const auto float_length = static_cast<double>(m_input_length);
            m_level_block_sizes     = std::vector<size_t>();
            m_level_block_sizes.reserve(num_levels);
-           m_level_block_count = std::vector<size_t>();
-           m_level_block_count.reserve(num_levels);
    
            size_t block_size = m_leaf_length;
    
            while (block_size < m_input_length) {
                m_level_block_sizes.push_back(block_size);
-               m_level_block_count.push_back(
-                   static_cast<size_t>(std::ceil(float_length / static_cast<double>(block_size))));
                block_size *= m_arity;
            }
+           m_root_arity = static_cast<size_t>(std::ceil(float_length / static_cast<double>(block_size / m_arity)));
    
            std::reverse(m_level_block_sizes.begin(), m_level_block_sizes.end());
-           std::reverse(m_level_block_count.begin(), m_level_block_count.end());
    
            // println!("count: {:?}", self.level_block_count);
        }
@@ -96,7 +92,6 @@ Program Listing for File block_tree.hpp
            m_leaf_length{leaf_length},
            m_arity{arity},
            m_level_block_sizes{0},
-           m_level_block_count{0},
            m_alphabet{input},
            m_leaf_string{0, internal::bit_size(m_alphabet.size())} {
            assert(input.length() > 0);

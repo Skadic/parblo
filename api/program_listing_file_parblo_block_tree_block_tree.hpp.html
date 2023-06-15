@@ -352,9 +352,9 @@ document.write(`
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">m_input_length</span><span class="p">;</span>
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">m_leaf_length</span><span class="p">;</span>
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">m_arity</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">m_root_arity</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_level_block_sizes</span><span class="p">;</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_level_block_count</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">AlphabetMapping</span><span class="w"> </span><span class="n">m_alphabet</span><span class="p">;</span>
 
@@ -366,20 +366,16 @@ document.write(`
 <span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">float_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">m_input_length</span><span class="p">);</span>
 <span class="w">        </span><span class="n">m_level_block_sizes</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="w">        </span><span class="n">m_level_block_sizes</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">num_levels</span><span class="p">);</span>
-<span class="w">        </span><span class="n">m_level_block_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">();</span>
-<span class="w">        </span><span class="n">m_level_block_count</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">num_levels</span><span class="p">);</span>
 
 <span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">block_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m_leaf_length</span><span class="p">;</span>
 
 <span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">block_size</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m_input_length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">m_level_block_sizes</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">block_size</span><span class="p">);</span>
-<span class="w">            </span><span class="n">m_level_block_count</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span>
-<span class="w">                </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ceil</span><span class="p">(</span><span class="n">float_length</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">block_size</span><span class="p">))));</span>
 <span class="w">            </span><span class="n">block_size</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">m_arity</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">m_root_arity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ceil</span><span class="p">(</span><span class="n">float_length</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">block_size</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">m_arity</span><span class="p">)));</span>
 
 <span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">reverse</span><span class="p">(</span><span class="n">m_level_block_sizes</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">m_level_block_sizes</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">reverse</span><span class="p">(</span><span class="n">m_level_block_count</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">m_level_block_count</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
 
 <span class="w">        </span><span class="c1">// println!(&quot;count: {:?}&quot;, self.level_block_count);</span>
 <span class="w">    </span><span class="p">}</span>
@@ -395,7 +391,6 @@ document.write(`
 <span class="w">        </span><span class="n">m_leaf_length</span><span class="p">{</span><span class="n">leaf_length</span><span class="p">},</span>
 <span class="w">        </span><span class="n">m_arity</span><span class="p">{</span><span class="n">arity</span><span class="p">},</span>
 <span class="w">        </span><span class="n">m_level_block_sizes</span><span class="p">{</span><span class="mi">0</span><span class="p">},</span>
-<span class="w">        </span><span class="n">m_level_block_count</span><span class="p">{</span><span class="mi">0</span><span class="p">},</span>
 <span class="w">        </span><span class="n">m_alphabet</span><span class="p">{</span><span class="n">input</span><span class="p">},</span>
 <span class="w">        </span><span class="n">m_leaf_string</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">internal</span><span class="o">::</span><span class="n">bit_size</span><span class="p">(</span><span class="n">m_alphabet</span><span class="p">.</span><span class="n">size</span><span class="p">())}</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">length</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
