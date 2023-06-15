@@ -3,7 +3,9 @@ build/
 compile_commands.json
 .vscode/c_cpp_properties.json
 cmake-build-*
-docs/api
-docs/sphinx
-docs/xml
+docs
+!docs/Doxyfile
+!docs/conf.py
+!docs/requirements.txt
+!docs/**/*.rst
 **/nohup.out
