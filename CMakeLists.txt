@@ -10,6 +10,7 @@ Include(FetchContent)
 set(CXX_STANDARD c++20)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=gnu++20 ${GCC_WARNINGS}")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO  "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -march=native -lprofiler")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb -DNDEBUG")
 
 # Generate compile_commands.json
@@ -54,6 +55,16 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(pasta_bit_vector)
 target_link_libraries(parblo INTERFACE pasta_bit_vector)
+
+
+FetchContent_Declare(
+        unordered_dense
+        GIT_REPOSITORY https://github.com/martinus/unordered_dense.git
+        GIT_TAG e88dd1ce6e9dc5b3fe84a7d93ac1d7f6f7653dbf
+        BUILD_COMMAND ""
+)
+FetchContent_MakeAvailable(unordered_dense)
+target_link_libraries(parblo INTERFACE unordered_dense)
 
 # openmp
 find_package(OpenMP REQUIRED)

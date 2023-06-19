@@ -18,6 +18,6 @@ int main(int argc, const char **argv) {
     buffer << t.rdbuf();
     input = buffer.str();
 
-    parblo::BlockTree bt(input, 16, 32, parblo::Sequential());
+    parblo::BlockTree bt(input, 2, 4, parblo::Sequential());
     std::cout << "bt size: " << bt.space_consumption() << " bytes" << std::endl;
 }

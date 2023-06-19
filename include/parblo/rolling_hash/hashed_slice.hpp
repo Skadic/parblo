@@ -11,9 +11,9 @@ class HashedSlice {
     /// @brief A pointer to the start of the hashed slice of the string.
     const uint8_t *m_bytes;
     /// @brief The length of the hashed slice in bytes.
-    const size_t m_length;
+    size_t m_length;
     /// @brief The hash value of this slice.
-    const uint64_t m_hash;
+    uint64_t m_hash;
 
   public:
     /// @brief Constructs a new hashed slice from a raw pointer.

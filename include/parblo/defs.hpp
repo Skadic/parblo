@@ -5,6 +5,7 @@
 #include <pasta/bit_vector/bit_vector.hpp>
 #include <pasta/bit_vector/support/flat_rank.hpp>
 #include <word_packing.hpp>
+#include <ankerl/unordered_dense.h>
 
 #include <parblo/rolling_hash/hashed_slice.hpp>
 
@@ -22,7 +23,7 @@ namespace parblo::internal {
      *  \tparam V The type of values stored in this map.
      */
     template<typename V>
-    using RabinKarpMap = std::unordered_map<HashedSlice, V>;
+    using RabinKarpMap = ankerl::unordered_dense::map<HashedSlice, V, std::hash<HashedSlice>>;
 
     /** \brief \verbatim embed:rst
         A multimap with :cpp:class:`hashed slices of text<parblo::HashedSlice>` as keys.
@@ -30,5 +31,5 @@ namespace parblo::internal {
      *  \tparam V The type of values stored in this map.
      */
     template<typename V>
-    using RabinKarpMultiMap = std::unordered_multimap<HashedSlice, V>;
+    using RabinKarpMultiMap = ankerl::unordered_dense::map<HashedSlice, std::vector<V>, std::hash<HashedSlice>>;
 }
