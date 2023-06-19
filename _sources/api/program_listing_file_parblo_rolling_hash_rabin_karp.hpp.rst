@@ -72,7 +72,7 @@ Program Listing for File rabin_karp.hpp
    
        [[nodiscard]] inline auto hash() const -> uint64_t { return this->m_hash; }
    
-       auto __attribute__ ((noinline)) advance() -> uint64_t {
+       inline auto advance() -> uint64_t {
            const uint8_t outchar = m_source[m_offset];
            const uint8_t inchar  = m_source[std::min(m_offset + m_window_size,  m_string_len)];
    
