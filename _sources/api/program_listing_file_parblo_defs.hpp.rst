@@ -31,4 +31,7 @@ Program Listing for File defs.hpp
    
        template<typename V>
        using RabinKarpMultiMap = ankerl::unordered_dense::map<HashedSlice, std::vector<V>, std::hash<HashedSlice>>;
+   
+       template<typename V>
+       using RabinKarpBoolMultiMap = ankerl::unordered_dense::map<HashedSlice, std::pair<bool, std::vector<V>>, std::hash<HashedSlice>>;
    }
