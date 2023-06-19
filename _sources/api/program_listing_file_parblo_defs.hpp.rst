@@ -23,7 +23,7 @@ Program Listing for File defs.hpp
    
    namespace parblo::internal {
        using BitVector = pasta::BitVector;
-       using Rank = pasta::FlatRank<pasta::OptimizedFor::ONE_QUERIES, BitVector>;
+       using Rank = pasta::FlatRank<pasta::OptimizedFor::ZERO_QUERIES, BitVector>;
        using PackedIntVector = word_packing::PackedIntVector<size_t>;
    
        template<typename V>

@@ -65,7 +65,7 @@ Program Listing for File sequential.hpp
    
            for (size_t level = 0; level < bt->height(); ++level) {
                // std::cout << "processing level " << level << " / " << bt->height()-1 << "
-               // --------------------------------------" << std::endl;
+               // -------------------------------------" << std::endl;
    #ifdef PARBLO_DEBUG_PRINTS
                std::cout << "is_adjacent: " << *is_adjacent << std::endl;
                std::cout << "block_starts(" << block_starts.size() << "): ";
@@ -282,8 +282,8 @@ Program Listing for File sequential.hpp
                const auto internal_block_bits = bit_size(num_internal_blocks);
    
                // Add new packed int-vectors
-               bt->m_source_blocks.emplace_back(num_back_blocks, internal_block_bits);
-               bt->m_offsets.emplace_back(num_back_blocks, block_size_bits);
+               bt->m_source_blocks.emplace_back(num_back_blocks + 1, internal_block_bits);
+               bt->m_offsets.emplace_back(num_back_blocks + 1, block_size_bits);
            }
    
            PackedIntVector &source_blocks = bt->m_source_blocks.back();
@@ -303,6 +303,7 @@ Program Listing for File sequential.hpp
    
            // Hash every window and find the first occurrences for every block.
            RabinKarp rk(s.c_str(), s.length(), block_size);
+           size_t current_block_internal_index = 0;
            for (size_t current_block_index = 0; current_block_index < num_blocks; ++current_block_index) {
                // We can skip this loop iteration if the current block is a back block
                // Nothing is ever going to point to this anyway.
@@ -322,8 +323,7 @@ Program Listing for File sequential.hpp
    
                scan_windows_in_block(rk,
                                      links,
-                                     current_block_index,
-                                     is_internal_rank.rank1(current_block_index),
+                                     current_block_internal_index,
                                      num_hashes,
                                      is_internal,
                                      is_internal_rank,
@@ -334,7 +334,10 @@ Program Listing for File sequential.hpp
                if (next_block_not_adjacent) {
                    rk = RabinKarp(s, block_starts[current_block_index + 1], block_size);
                }
+               ++current_block_index;
            }
+           source_blocks.resize(source_blocks.size() - 1);
+           offsets.resize(offsets.size() - 1);
    #ifdef PARBLO_DEBUG_PRINTS
            for (const auto &[hash, entry] : links) {
                std::cout << entry.block_index << ": (" << entry.source_block_index << ", " << entry.offset << ")"
@@ -356,15 +359,14 @@ Program Listing for File sequential.hpp
            return links;
        }
    
-       static void __attribute__((noinline)) scan_windows_in_block(RabinKarp               &rk,
-                                                                   RabinKarpMultiMap<Link> &links,
-                                                                   const size_t             current_block_index,
-                                                                   const size_t             current_block_internal_index,
-                                                                   const size_t             num_hashes,
-                                                                   const BitVector         &is_internal,
-                                                                   const Rank              &is_internal_rank,
-                                                                   PackedIntVector         &source_blocks,
-                                                                   PackedIntVector         &offsets) {
+       static inline void scan_windows_in_block(RabinKarp               &rk,
+                                                RabinKarpMultiMap<Link> &links,
+                                                const size_t             current_block_internal_index,
+                                                const size_t             num_hashes,
+                                                const BitVector         &is_internal,
+                                                const Rank              &is_internal_rank,
+                                                PackedIntVector         &source_blocks,
+                                                PackedIntVector         &offsets) {
            for (size_t offset = 0; offset < num_hashes; ++offset) {
                const HashedSlice current_hash = rk.hashed_slice();
                // Find all blocks in the multimap that match our hash
@@ -375,17 +377,17 @@ Program Listing for File sequential.hpp
                const size_t num_found_blocks = found->second.size();
                for (size_t i = 1; i < num_found_blocks; ++i) {
                    Link &link = found->second[i];
-                   // In this case, our current position is an earlier occurrence and has no other link set yet!
-                   const size_t back_block_index = is_internal_rank.rank0(link.block_index);
-                   // Get the index of the back block only considering back blocks
                    link.source_block_index = current_block_internal_index;
                    link.offset             = offset;
                    // There is only space for non-internal blocks in these vectors
                    if (!is_internal[link.block_index]) {
+                       // Get the index of the back block only considering back blocks
+                       const size_t back_block_index = is_internal_rank.rank0(link.block_index);
                        source_blocks[back_block_index] = current_block_internal_index;
                        offsets[back_block_index]       = offset;
                    }
                }
+               links.erase(found);
                rk.advance();
            }
        }
