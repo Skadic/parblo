@@ -64,7 +64,8 @@ Program Listing for File sequential.hpp
            }
    
            for (size_t level = 0; level < bt->height(); ++level) {
-               std::cout << "processing level " << level << " / " << bt->height()-1 << " --------------------------------------" << std::endl;
+               // std::cout << "processing level " << level << " / " << bt->height()-1 << "
+               // --------------------------------------" << std::endl;
    #ifdef PARBLO_DEBUG_PRINTS
                std::cout << "is_adjacent: " << *is_adjacent << std::endl;
                std::cout << "block_starts(" << block_starts.size() << "): ";
@@ -291,8 +292,9 @@ Program Listing for File sequential.hpp
            // A map containing hashed slices mapped to a link to their (potential) source block.
            RabinKarpMultiMap<Link> links(num_blocks - 1);
            for (size_t i = 0; i < num_blocks; ++i) {
-               const HashedSlice hash = RabinKarp(s, block_starts[i], block_size).hashed_slice();
-               links.insert({hash, Link(i)});
+               const HashedSlice hash  = RabinKarp(s, block_starts[i], block_size).hashed_slice();
+               auto              entry = links.insert({hash, {}});
+               entry.first->second.emplace_back(i);
            }
    
            if (num_blocks < 4) {
@@ -320,6 +322,7 @@ Program Listing for File sequential.hpp
    
                scan_windows_in_block(rk,
                                      links,
+                                     current_block_index,
                                      is_internal_rank.rank1(current_block_index),
                                      num_hashes,
                                      is_internal,
@@ -353,30 +356,34 @@ Program Listing for File sequential.hpp
            return links;
        }
    
-       static void scan_windows_in_block(RabinKarp               &rk,
-                                         RabinKarpMultiMap<Link> &links,
-                                         const size_t             current_block_internal_index,
-                                         const size_t             num_hashes,
-                                         const BitVector         &is_internal,
-                                         const Rank              &is_internal_rank,
-                                         PackedIntVector         &source_blocks,
-                                         PackedIntVector         &offsets) {
+       static void __attribute__((noinline)) scan_windows_in_block(RabinKarp               &rk,
+                                                                   RabinKarpMultiMap<Link> &links,
+                                                                   const size_t             current_block_index,
+                                                                   const size_t             current_block_internal_index,
+                                                                   const size_t             num_hashes,
+                                                                   const BitVector         &is_internal,
+                                                                   const Rank              &is_internal_rank,
+                                                                   PackedIntVector         &source_blocks,
+                                                                   PackedIntVector         &offsets) {
            for (size_t offset = 0; offset < num_hashes; ++offset) {
                const HashedSlice current_hash = rk.hashed_slice();
                // Find all blocks in the multimap that match our hash
-               const auto &[start, end] = links.equal_range(current_hash);
-               for (auto &[found_hash, link] : std::ranges::subrange(start, end)) {
+               auto found = links.find(current_hash);
+               if (found == links.end()) {
+                   continue;
+               }
+               const size_t num_found_blocks = found->second.size();
+               for (size_t i = 1; i < num_found_blocks; ++i) {
+                   Link &link = found->second[i];
                    // In this case, our current position is an earlier occurrence and has no other link set yet!
-                   if (current_hash.bytes() < found_hash.bytes() && !link.is_valid()) {
-                       const size_t back_block_index = is_internal_rank.rank0(link.block_index);
-                       // Get the index of the back block only considering back blocks
-                       link.source_block_index = current_block_internal_index;
-                       link.offset             = offset;
-                       // There is only space for non-internal blocks in these vectors
-                       if (!is_internal[link.block_index]) {
-                           source_blocks[back_block_index] = current_block_internal_index;
-                           offsets[back_block_index]       = offset;
-                       }
+                   const size_t back_block_index = is_internal_rank.rank0(link.block_index);
+                   // Get the index of the back block only considering back blocks
+                   link.source_block_index = current_block_internal_index;
+                   link.offset             = offset;
+                   // There is only space for non-internal blocks in these vectors
+                   if (!is_internal[link.block_index]) {
+                       source_blocks[back_block_index] = current_block_internal_index;
+                       offsets[back_block_index]       = offset;
                    }
                }
                rk.advance();

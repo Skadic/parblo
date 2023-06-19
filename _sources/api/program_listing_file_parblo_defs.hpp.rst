@@ -17,6 +17,7 @@ Program Listing for File defs.hpp
    #include <pasta/bit_vector/bit_vector.hpp>
    #include <pasta/bit_vector/support/flat_rank.hpp>
    #include <word_packing.hpp>
+   #include <ankerl/unordered_dense.h>
    
    #include <parblo/rolling_hash/hashed_slice.hpp>
    
@@ -26,8 +27,8 @@ Program Listing for File defs.hpp
        using PackedIntVector = word_packing::PackedIntVector<size_t>;
    
        template<typename V>
-       using RabinKarpMap = std::unordered_map<HashedSlice, V>;
+       using RabinKarpMap = ankerl::unordered_dense::map<HashedSlice, V, std::hash<HashedSlice>>;
    
        template<typename V>
-       using RabinKarpMultiMap = std::unordered_multimap<HashedSlice, V>;
+       using RabinKarpMultiMap = ankerl::unordered_dense::map<HashedSlice, std::vector<V>, std::hash<HashedSlice>>;
    }

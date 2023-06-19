@@ -114,29 +114,37 @@ Program Listing for File block_tree.hpp
        [[nodiscard]] inline auto input_length() const -> size_t { return m_input_length; }
    
        [[nodiscard("space consumption calculated but unused")]] inline auto space_consumption() const -> size_t {
-           size_t size = 0;
+           size_t is_internal_size = 0;
            for (const auto &bitvec : m_is_internal) {
-               size += bitvec->data().size() * sizeof(BitVector::RawDataType);
+               is_internal_size += bitvec->data().size() * sizeof(BitVector::RawDataType);
            }
+           std::cout << "is_internal: " << is_internal_size << std::endl;
+           size_t is_internal_rank_size = 0;
            for (const auto &rank_ds : m_is_internal_rank) {
-               size += rank_ds.space_usage();
+               is_internal_rank_size += rank_ds.space_usage();
            }
+           std::cout << "is_internal_rank: " << is_internal_rank_size << std::endl;
+           size_t source_blocks_size = 0;
            for (const auto &vec : m_source_blocks) {
-               size += vec.size() * vec.width() / 8;
+               source_blocks_size += vec.size() * vec.width() / 8;
            }
+           std::cout << "source_blocks: " << source_blocks_size << std::endl;
+           size_t offsets_size = 0;
            for (const auto &vec : m_offsets) {
-               size += vec.size() * vec.width() / 8;
+               offsets_size += vec.size() * vec.width() / 8;
            }
-           size += sizeof(m_input_length);
-           size += sizeof(m_leaf_length);
-           size += sizeof(m_arity);
-           size += sizeof(m_root_arity);
+           std::cout << "offsets_size: " << offsets_size << std::endl;
    
-           size += m_level_block_sizes.size() * sizeof(decltype(m_level_block_sizes)::value_type);
-           size += sizeof(m_alphabet);
-           size += m_leaf_string.size() * m_leaf_string.width() / 8;
+           size_t level_block_sizes_size = m_level_block_sizes.size() * sizeof(decltype(m_level_block_sizes)::value_type);
+           size_t alphabet_size          = sizeof(m_alphabet);
+           size_t leaf_string_size       = m_leaf_string.size() * m_leaf_string.width() / 8;
    
-           return size;
+           std::cout << "level_block_sizes: " << level_block_sizes_size << std::endl;
+           std::cout << "alphabet_size: " << alphabet_size << std::endl;
+           std::cout << "leaf_string_size: " << leaf_string_size << std::endl;
+   
+           return is_internal_size + is_internal_rank_size + source_blocks_size + source_blocks_size + offsets_size +
+                  level_block_sizes_size + alphabet_size + leaf_string_size;
        }
    };
    

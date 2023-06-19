@@ -37,8 +37,8 @@ Typedefs
 
 - :ref:`exhale_typedef_namespaceparblo_1_1internal_1a5e2f8f8f1d20f3bdaaef595a837133dd`
 
-- :ref:`exhale_typedef_namespaceparblo_1_1internal_1a257163a3e064eb018e02abc78a2b4a85`
+- :ref:`exhale_typedef_namespaceparblo_1_1internal_1af5870b2bc66d9cc0b48fc08457233d57`
 
-- :ref:`exhale_typedef_namespaceparblo_1_1internal_1aece1277f86a5d776b374894d611a90d5`
+- :ref:`exhale_typedef_namespaceparblo_1_1internal_1a37d5cc1d803633df0a273828f8c7ec0a`
 
 - :ref:`exhale_typedef_namespaceparblo_1_1internal_1a80e643d46849ec2bbb8720838fef13b1`

@@ -20,8 +20,8 @@ Program Listing for File hashed_slice.hpp
    
    class HashedSlice {
        const uint8_t *m_bytes;
-       const size_t m_length;
-       const uint64_t m_hash;
+       size_t m_length;
+       uint64_t m_hash;
    
      public:
        inline HashedSlice(const uint8_t *bytes, size_t len, uint64_t hash) : m_bytes{bytes}, m_length{len}, m_hash{hash} {}
