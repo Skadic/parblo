@@ -13,7 +13,7 @@ namespace parblo::internal {
     /// \brief An uncompressed bit vector.
     using BitVector = pasta::BitVector;
     /// \brief A rank data structure on a \ref BitVector.
-    using Rank = pasta::FlatRank<pasta::OptimizedFor::ONE_QUERIES, BitVector>;
+    using Rank = pasta::FlatRank<pasta::OptimizedFor::ZERO_QUERIES, BitVector>;
     /// \brief A dynamically resizable vector for packed integers.
     using PackedIntVector = word_packing::PackedIntVector<size_t>;
 
