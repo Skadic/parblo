@@ -333,6 +333,22 @@ document.write(`
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo9RabinKarp9RabinKarpEPK7uint8_tK6size_tK6size_t8uint64_t">
+<span id="_CPPv3N6parblo9RabinKarp9RabinKarpEPK7uint8_tK6size_tK6size_t8uint64_t"></span><span id="_CPPv2N6parblo9RabinKarp9RabinKarpEPK7uint8_tK6size_tK6size_t8uint64_t"></span><span id="parblo::RabinKarp::RabinKarp__uint8_tCP.sC.sC.uint64_t"></span><span class="target" id="classparblo_1_1RabinKarp_1a8b5524155b51faee0ab5b0802e1e9583"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RabinKarp</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">source</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">string_len</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">window_size</span></span>, <span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">remainder</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo9RabinKarp9RabinKarpEPK7uint8_tK6size_tK6size_t8uint64_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Create a new Rabin-Karp hasher from a pointer, with a given string length and window size with a pre-calculated remainder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> – A pointer into the string to be hashed. </p></li>
+<li><p><strong>string_len</strong> – The number of characters from the given pointer until the end of the string. </p></li>
+<li><p><strong>window_size</strong> – The number of characters each rolling hash will be hashing. </p></li>
+<li><p><strong>remainder</strong> – The remainder of <code class="docutils literal notranslate"><span class="pre">BASE</span></code>^<code class="docutils literal notranslate"><span class="pre">window_size</span></code> modulo <code class="docutils literal notranslate"><span class="pre">PRIME</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6parblo9RabinKarp9RabinKarpEPK7uint8_tK6size_tK6size_t">
 <span id="_CPPv3N6parblo9RabinKarp9RabinKarpEPK7uint8_tK6size_tK6size_t"></span><span id="_CPPv2N6parblo9RabinKarp9RabinKarpEPK7uint8_tK6size_tK6size_t"></span><span id="parblo::RabinKarp::RabinKarp__uint8_tCP.sC.sC"></span><span class="target" id="classparblo_1_1RabinKarp_1aa0650e9c324e936e4f0360f7c9ddf223"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RabinKarp</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">source</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">string_len</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">window_size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo9RabinKarp9RabinKarpEPK7uint8_tK6size_tK6size_t" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Create a new Rabin-Karp hasher from a pointer, with a given string length and window size. </p>
@@ -357,6 +373,22 @@ document.write(`
 <li><p><strong>source</strong> – A pointer into the string to be hashed. </p></li>
 <li><p><strong>string_len</strong> – The number of characters from the given pointer until the end of the string. </p></li>
 <li><p><strong>window_size</strong> – The number of characters each rolling hash will be hashing. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo9RabinKarp9RabinKarpERKNSt6stringEK6size_tK6size_tK8uint64_t">
+<span id="_CPPv3N6parblo9RabinKarp9RabinKarpERKNSt6stringEK6size_tK6size_tK8uint64_t"></span><span id="_CPPv2N6parblo9RabinKarp9RabinKarpERKNSt6stringEK6size_tK6size_tK8uint64_t"></span><span id="parblo::RabinKarp::RabinKarp__ssCR.sC.sC.uint64_tC"></span><span class="target" id="classparblo_1_1RabinKarp_1a95a4e4f98bbf7b698b34a3e7f2f29c72"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RabinKarp</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">source</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">start</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">window_size</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">remainder</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6parblo9RabinKarp9RabinKarpERKNSt6stringEK6size_tK6size_tK8uint64_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Create a new Rabin-Karp hasher from a string, a start index and window size which will hash until the end of the string. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> – A string from which window will be hashed. </p></li>
+<li><p><strong>start</strong> – The start index from which the hasher will start hashing end of the string. </p></li>
+<li><p><strong>window_size</strong> – The number of characters each rolling hash will be hashing. </p></li>
+<li><p><strong>remainder</strong> – The remainder of <code class="docutils literal notranslate"><span class="pre">BASE</span></code>^<code class="docutils literal notranslate"><span class="pre">window_size</span></code> modulo <code class="docutils literal notranslate"><span class="pre">PRIME</span></code></p></li>
 </ul>
 </dd>
 </dl>
@@ -454,6 +486,23 @@ document.write(`
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code>, if the hash values and the current position are the same. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo9RabinKarp18generate_remainderEK6size_t">
+<span id="_CPPv3N6parblo9RabinKarp18generate_remainderEK6size_t"></span><span id="_CPPv2N6parblo9RabinKarp18generate_remainderEK6size_t"></span><span id="parblo::RabinKarp::generate_remainder__sC"></span><span class="target" id="classparblo_1_1RabinKarp_1a9ba1cce6080909fb70977e7aa3d35983"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">generate_remainder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">window_size</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">uint64_t</span></span><a class="headerlink" href="#_CPPv4N6parblo9RabinKarp18generate_remainderEK6size_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Create the remainder of BASE^(window_size) modulo PRIME. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>window_size</strong> – The window size of the hasher. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The remainder of <code class="docutils literal notranslate"><span class="pre">BASE</span></code>^<code class="docutils literal notranslate"><span class="pre">window_size</span></code> modulo <code class="docutils literal notranslate"><span class="pre">PRIME</span></code></p>
 </dd>
 </dl>
 </dd></dl>

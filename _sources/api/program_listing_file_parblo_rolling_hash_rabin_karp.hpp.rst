@@ -12,8 +12,8 @@ Program Listing for File rabin_karp.hpp
 
    #pragma once
    
-   #include <cstdint>
    #include <cstddef>
+   #include <cstdint>
    #include <string>
    
    #include <parblo/rolling_hash/hashed_slice.hpp>
@@ -32,11 +32,20 @@ Program Listing for File rabin_karp.hpp
        uint64_t m_hash;
    
      public:
-       RabinKarp(const uint8_t *source, const size_t string_len, const size_t window_size) :
+       static inline auto generate_remainder(const size_t window_size) -> uint64_t {
+           uint64_t rem = 1;
+           for (size_t i = 0; i < window_size - 1; i++) {
+               rem = (rem * BASE) % PRIME;
+           }
+           return rem;
+       }
+   
+       inline RabinKarp(const uint8_t *source, const size_t string_len, const size_t window_size, uint64_t remainder) :
            m_source{source},
            m_string_len{string_len},
            m_offset{0},
-           m_window_size{window_size} {
+           m_window_size{window_size},
+           m_remainder{remainder} {
            // Create the initial hash value
            m_hash = 0;
            uint64_t c;
@@ -46,16 +55,18 @@ Program Listing for File rabin_karp.hpp
                m_hash += c;
                m_hash %= PRIME;
            }
-   
-           // Create the remainder of BASE^(window_size) modulo PRIME
-           m_remainder = 1;
-           for (size_t i = 0; i < window_size - 1; i++) {
-               m_remainder = (m_remainder * BASE) % PRIME;
-           }
        }
+   
+       inline RabinKarp(const uint8_t *source, const size_t string_len, const size_t window_size) :
+           RabinKarp(source, string_len, window_size, generate_remainder(window_size)) {}
    
        inline RabinKarp(const char *source, const size_t string_len, const size_t window_size) :
            RabinKarp(reinterpret_cast<const uint8_t *>(source), string_len, window_size) {}
+   
+       inline RabinKarp(const std::string &source, const size_t start, const size_t window_size, const uint64_t remainder) :
+           RabinKarp(reinterpret_cast<const uint8_t*>(source.c_str()), source.length(), window_size, remainder) {
+           m_offset = start;
+       }
    
        inline RabinKarp(const std::string &source, const size_t start, const size_t window_size) :
            RabinKarp(source.c_str(), source.length(), window_size) {
@@ -74,7 +85,7 @@ Program Listing for File rabin_karp.hpp
    
        inline auto advance() -> uint64_t {
            const uint8_t outchar = m_source[m_offset];
-           const uint8_t inchar  = m_source[std::min(m_offset + m_window_size,  m_string_len)];
+           const uint8_t inchar  = m_source[std::min(m_offset + m_window_size, m_string_len)];
    
            m_hash += PRIME;
            m_hash -= (m_remainder * outchar) % PRIME;
