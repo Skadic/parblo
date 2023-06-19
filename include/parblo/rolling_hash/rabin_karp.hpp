@@ -92,7 +92,7 @@ class RabinKarp {
 
     /// @brief Advances the hashed by one byte and recalculates the hash value.
     /// @return The hash value after advancing.
-    auto __attribute__ ((noinline)) advance() -> uint64_t {
+    inline auto advance() -> uint64_t {
         const uint8_t outchar = m_source[m_offset];
         const uint8_t inchar  = m_source[std::min(m_offset + m_window_size,  m_string_len)];
 

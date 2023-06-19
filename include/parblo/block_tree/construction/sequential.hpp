@@ -135,8 +135,9 @@ struct Sequential {
         const size_t block_size = bt->m_level_block_sizes[old_level + 1];
         // The last block might not have all m_arity children.
         // We only want children that start before the end of the string
-        const size_t old_last_block_num_children = static_cast<size_t>(
-            ceil((s.length() - old_block_starts[old_block_starts.size() - 1]) / static_cast<double>(block_size)));
+        const auto old_last_block_num_children =
+            static_cast<size_t>(ceil(static_cast<double>((s.length() - old_block_starts[old_block_starts.size() - 1])) /
+                                     static_cast<double>(block_size)));
         const size_t num_blocks = (old_num_internal_blocks - 1) * bt->m_arity + old_last_block_num_children; // k'j
 
         std::unique_ptr<BitVector> is_adjacent_ptr = std::make_unique<BitVector>(num_blocks - 1, true);
@@ -326,12 +327,12 @@ struct Sequential {
         PackedIntVector &offsets       = bt->m_offsets.back();
 
         // A map containing hashed slices mapped to a link to their (potential) source block.
-        RabinKarpBoolMultiMap<Link> links(num_blocks - 1);
+        RabinKarpMap<std::pair<bool, std::vector<Link>>> links(num_blocks - 1);
         for (size_t i = 0; i < num_blocks; ++i) {
-            const HashedSlice hash  = RabinKarp(s, block_starts[i], block_size).hashed_slice();
-            auto              entry = links.insert({hash, {false, {}}});
-            auto &[_, pair]         = *entry.first;
-            auto &[__, vec]         = pair;
+            const HashedSlice hash   = RabinKarp(s, block_starts[i], block_size).hashed_slice();
+            auto              entry  = links.insert({hash, {false, {}}});
+            auto &[found_hash, pair] = *entry.first;
+            auto &[handled, vec]     = pair;
             vec.emplace_back(i);
         }
 
@@ -411,23 +412,24 @@ struct Sequential {
     ///     (with respect to back blocks only) of its source. This is populated by this function.
     /// \param offsets For each back block on the current level stores offset into its source block from which it will
     ///     copy its content. This is populated by this function.
-    static void scan_windows_in_block(RabinKarp                   &rk,
-                                      RabinKarpBoolMultiMap<Link> &links,
-                                      const size_t                 current_block_internal_index,
-                                      const size_t                 num_hashes,
-                                      const BitVector             &is_internal,
-                                      const Rank                  &is_internal_rank,
-                                      PackedIntVector             &source_blocks,
-                                      PackedIntVector             &offsets) {
+    static void scan_windows_in_block(RabinKarp                                        &rk,
+                                      RabinKarpMap<std::pair<bool, std::vector<Link>>> &links,
+                                      const size_t                                      current_block_internal_index,
+                                      const size_t                                      num_hashes,
+                                      const BitVector                                  &is_internal,
+                                      const Rank                                       &is_internal_rank,
+                                      PackedIntVector                                  &source_blocks,
+                                      PackedIntVector                                  &offsets) {
         for (size_t offset = 0; offset < num_hashes; ++offset) {
             const HashedSlice current_hash = rk.hashed_slice();
             // Find all blocks in the multimap that match our hash
             auto found = links.find(current_hash);
+            // Only handle this hash if it does not exist and we have not handled it already
             if (found == links.end() || found->second.first) {
                 continue;
             }
-            auto        &found_blocks     = found->second.second;
-            const size_t num_found_blocks = found_blocks.size();
+            std::vector<Link> &found_blocks     = found->second.second;
+            const size_t       num_found_blocks = found_blocks.size();
             for (size_t i = 1; i < num_found_blocks; ++i) {
                 Link &link              = found_blocks[i];
                 link.source_block_index = current_block_internal_index;

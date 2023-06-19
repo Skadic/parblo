@@ -9,11 +9,11 @@ namespace parblo {
 /// @brief A hashed slice of a text.
 class HashedSlice {
     /// @brief A pointer to the start of the hashed slice of the string.
-    const uint8_t *m_bytes;
+    const uint8_t *m_bytes{};
     /// @brief The length of the hashed slice in bytes.
-    size_t m_length;
+    size_t m_length{};
     /// @brief The hash value of this slice.
-    uint64_t m_hash;
+    uint64_t m_hash{};
 
   public:
     /// @brief Constructs a new hashed slice from a raw pointer.
@@ -57,12 +57,12 @@ class HashedSlice {
     /// Since the hash implementation only cares about the m_hash field, we can use this to search in hash tables with
     /// HashedSlice as keys.
     /// \param hash The hash value of the slice you want to search for.
-    inline HashedSlice(uint64_t hash) : m_bytes{nullptr}, m_length{0}, m_hash{hash} {}
+    inline explicit HashedSlice(uint64_t hash) : m_bytes{nullptr}, m_length{0}, m_hash{hash} {}
 
     /// @brief Indexes into the hashed slice and returns the byte at the given index.
     /// @param i The index to retrieve.
     /// @return The byte at index `i`.
-    [[nodiscard]] inline auto operator[](const size_t i) const -> const uint8_t { return *(m_bytes + i); }
+    [[nodiscard]] inline auto operator[](const size_t i) const -> uint8_t { return *(m_bytes + i); }
 
     /// @brief Returns the pointer to the underlying slice.
     /// @return The pointer to the slice.
