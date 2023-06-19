@@ -48,6 +48,7 @@ class RabinKarp {
     /// \param source A pointer into the string to be hashed.
     /// \param string_len The number of characters from the given pointer until the end of the string.
     /// \param window_size The number of characters each rolling hash will be hashing.
+    /// \param remainder The remainder of `BASE`^`window_size` modulo `PRIME`
     inline RabinKarp(const uint8_t *source, const size_t string_len, const size_t window_size, uint64_t remainder) :
         m_source{source},
         m_string_len{string_len},
@@ -78,6 +79,17 @@ class RabinKarp {
     /// \param window_size The number of characters each rolling hash will be hashing.
     inline RabinKarp(const char *source, const size_t string_len, const size_t window_size) :
         RabinKarp(reinterpret_cast<const uint8_t *>(source), string_len, window_size) {}
+
+    /// \brief Create a new Rabin-Karp hasher from a string, a start index and window size which will hash until the end
+    /// of the string.
+    /// \param source A string from which window will be hashed.
+    /// \param start The start index from which the hasher will start hashing end of the string.
+    /// \param window_size The number of characters each rolling hash will be hashing.
+    /// \param remainder The remainder of `BASE`^`window_size` modulo `PRIME`
+    inline RabinKarp(const std::string &source, const size_t start, const size_t window_size, const uint64_t remainder) :
+        RabinKarp(reinterpret_cast<const uint8_t*>(source.c_str()), source.length(), window_size, remainder) {
+        m_offset = start;
+    }
 
     /// \brief Create a new Rabin-Karp hasher from a string, a start index and window size which will hash until the end
     /// of the string.

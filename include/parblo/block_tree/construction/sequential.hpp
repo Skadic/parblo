@@ -201,6 +201,7 @@ struct Sequential {
 
         // A map containing hashed slices mapped to their index of the pair's first block
         RabinKarpMap<int> map(num_blocks - 1);
+        const uint64_t rk_remainder = RabinKarp::generate_remainder(pair_size);
 
         // Set up the packed array holding the markings for each block.
         // If for some block pair we find an earlier occurrence, we increment the marking for both blocks.
@@ -212,7 +213,7 @@ struct Sequential {
         auto markings = word_packing::accessor<2>(marking_buffer.data());
 
         {
-            RabinKarp rk(s.c_str(), s.length(), pair_size);
+            RabinKarp rk(s, 0, pair_size, rk_remainder);
             for (size_t i = 0; i < num_blocks - 1; ++i) {
                 // If the next block is not adjacent, we must relocate the hasher to the next pair of adjacent blocks.
                 if (!is_adjacent[i]) {
@@ -220,7 +221,7 @@ struct Sequential {
                     while (!is_adjacent[++i] && i < num_blocks - 1)
                         ;
                     // rk = RabinKarp(s.c_str() + block_starts[i], 0, pair_size);
-                    rk = RabinKarp(s, block_starts[i], pair_size);
+                    rk = RabinKarp(s, block_starts[i], pair_size, rk_remainder);
                     continue;
                 }
                 HashedSlice hash          = rk.hashed_slice();
@@ -235,7 +236,7 @@ struct Sequential {
         }
 
         // Hash every window and determine for all block pairs whether they have previous occurrences.
-        RabinKarp rk(s.c_str(), s.length(), pair_size);
+        RabinKarp rk(s, 0, pair_size, rk_remainder);
         for (size_t i = 0; i < num_blocks; ++i) {
             if (!is_adjacent[i]) {
                 continue;
@@ -328,8 +329,9 @@ struct Sequential {
 
         // A map containing hashed slices mapped to a link to their (potential) source block.
         RabinKarpMap<std::pair<bool, std::vector<Link>>> links(num_blocks - 1);
+        const uint64_t rk_remainder = RabinKarp::generate_remainder(block_size);
         for (size_t i = 0; i < num_blocks; ++i) {
-            const HashedSlice hash   = RabinKarp(s, block_starts[i], block_size).hashed_slice();
+            const HashedSlice hash   = RabinKarp(s, block_starts[i], block_size, rk_remainder).hashed_slice();
             auto              entry  = links.insert({hash, {false, {}}});
             auto &[found_hash, pair] = *entry.first;
             auto &[handled, vec]     = pair;
@@ -341,7 +343,7 @@ struct Sequential {
         }
 
         // Hash every window and find the first occurrences for every block.
-        RabinKarp rk(s.c_str(), s.length(), block_size);
+        RabinKarp rk(s, 0, block_size, rk_remainder);
         size_t    current_block_internal_index = 0;
         for (size_t current_block_index = 0; current_block_index < num_blocks; ++current_block_index) {
             // We can skip this loop iteration if the current block is a back block
@@ -371,7 +373,7 @@ struct Sequential {
 
             // If there is a next block and it is not adjacent, we need to move the Rabin-Karp hasher to the next block
             if (next_block_not_adjacent) {
-                rk = RabinKarp(s, block_starts[current_block_index + 1], block_size);
+                rk = RabinKarp(s, block_starts[current_block_index + 1], block_size, rk_remainder);
             }
             ++current_block_index;
         }
