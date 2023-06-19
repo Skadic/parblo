@@ -32,4 +32,13 @@ namespace parblo::internal {
      */
     template<typename V>
     using RabinKarpMultiMap = ankerl::unordered_dense::map<HashedSlice, std::vector<V>, std::hash<HashedSlice>>;
+
+    /** \brief \verbatim embed:rst
+        A multimap with :cpp:class:`hashed slices of text<parblo::HashedSlice>` as keys
+        and an additional bool field to mark whether the value has already been processed..
+        \endverbatim
+     *  \tparam V The type of values stored in this map.
+     */
+    template<typename V>
+    using RabinKarpBoolMultiMap = ankerl::unordered_dense::map<HashedSlice, std::pair<bool, std::vector<V>>, std::hash<HashedSlice>>;
 }

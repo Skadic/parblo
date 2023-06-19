@@ -91,7 +91,7 @@ struct Sequential {
 #ifdef PARBLO_DEBUG_PRINTS
             std::cout << "is_internal: " << *bt->m_is_internal[level] << std::endl;
 #endif
-            RabinKarpMultiMap<Link> links = scan_blocks(bt, s, level, *is_adjacent, block_starts);
+            auto links = scan_blocks(bt, s, level, *is_adjacent, block_starts);
             // Move to the next level
             if (level < bt->height() - 1) {
                 auto [next_is_adjacent, next_block_starts] = to_next_level(bt, s, level, *is_adjacent, block_starts);
@@ -303,7 +303,7 @@ struct Sequential {
                             const std::string &s,
                             const size_t       level,
                             const BitVector   &is_adjacent,
-                            PackedIntVector   &block_starts) -> RabinKarpMultiMap<Link> {
+                            PackedIntVector   &block_starts) -> RabinKarpBoolMultiMap<Link> {
         const size_t block_size = bt->m_level_block_sizes[level];
         const size_t num_blocks = block_starts.size();
 
@@ -326,11 +326,13 @@ struct Sequential {
         PackedIntVector &offsets       = bt->m_offsets.back();
 
         // A map containing hashed slices mapped to a link to their (potential) source block.
-        RabinKarpMultiMap<Link> links(num_blocks - 1);
+        RabinKarpBoolMultiMap<Link> links(num_blocks - 1);
         for (size_t i = 0; i < num_blocks; ++i) {
             const HashedSlice hash  = RabinKarp(s, block_starts[i], block_size).hashed_slice();
-            auto              entry = links.insert({hash, {}});
-            entry.first->second.emplace_back(i);
+            auto              entry = links.insert({hash, {false, {}}});
+            auto &[_, pair]         = *entry.first;
+            auto &[__, vec]         = pair;
+            vec.emplace_back(i);
         }
 
         if (num_blocks < 4) {
@@ -339,7 +341,7 @@ struct Sequential {
 
         // Hash every window and find the first occurrences for every block.
         RabinKarp rk(s.c_str(), s.length(), block_size);
-        size_t current_block_internal_index = 0;
+        size_t    current_block_internal_index = 0;
         for (size_t current_block_index = 0; current_block_index < num_blocks; ++current_block_index) {
             // We can skip this loop iteration if the current block is a back block
             // Nothing is ever going to point to this anyway.
@@ -409,35 +411,37 @@ struct Sequential {
     ///     (with respect to back blocks only) of its source. This is populated by this function.
     /// \param offsets For each back block on the current level stores offset into its source block from which it will
     ///     copy its content. This is populated by this function.
-    static inline void scan_windows_in_block(RabinKarp               &rk,
-                                             RabinKarpMultiMap<Link> &links,
-                                             const size_t             current_block_internal_index,
-                                             const size_t             num_hashes,
-                                             const BitVector         &is_internal,
-                                             const Rank              &is_internal_rank,
-                                             PackedIntVector         &source_blocks,
-                                             PackedIntVector         &offsets) {
+    static void scan_windows_in_block(RabinKarp                   &rk,
+                                      RabinKarpBoolMultiMap<Link> &links,
+                                      const size_t                 current_block_internal_index,
+                                      const size_t                 num_hashes,
+                                      const BitVector             &is_internal,
+                                      const Rank                  &is_internal_rank,
+                                      PackedIntVector             &source_blocks,
+                                      PackedIntVector             &offsets) {
         for (size_t offset = 0; offset < num_hashes; ++offset) {
             const HashedSlice current_hash = rk.hashed_slice();
             // Find all blocks in the multimap that match our hash
             auto found = links.find(current_hash);
-            if (found == links.end()) {
+            if (found == links.end() || found->second.first) {
                 continue;
             }
-            const size_t num_found_blocks = found->second.size();
+            auto        &found_blocks     = found->second.second;
+            const size_t num_found_blocks = found_blocks.size();
             for (size_t i = 1; i < num_found_blocks; ++i) {
-                Link &link = found->second[i];
+                Link &link              = found_blocks[i];
                 link.source_block_index = current_block_internal_index;
                 link.offset             = offset;
                 // There is only space for non-internal blocks in these vectors
                 if (!is_internal[link.block_index]) {
                     // Get the index of the back block only considering back blocks
-                    const size_t back_block_index = is_internal_rank.rank0(link.block_index);
+                    const size_t back_block_index   = is_internal_rank.rank0(link.block_index);
                     source_blocks[back_block_index] = current_block_internal_index;
                     offsets[back_block_index]       = offset;
                 }
             }
-            links.erase(found);
+            // We handled this hash, so we mark it as such
+            found->second.first = true;
             rk.advance();
         }
     }
