@@ -68,6 +68,9 @@ struct Sequential {
             block_starts[i] = first_level_block_size * i;
         }
 
+        std::vector<RabinKarpMap<std::pair<bool, std::vector<Link>>>> level_links;
+        level_links.reserve(bt->height());
+
         for (size_t level = 0; level < bt->height(); ++level) {
             // std::cout << "processing level " << level << " / " << bt->height()-1 << "
             // -------------------------------------" << std::endl;
@@ -91,7 +94,8 @@ struct Sequential {
 #ifdef PARBLO_DEBUG_PRINTS
             std::cout << "is_internal: " << *bt->m_is_internal[level] << std::endl;
 #endif
-            auto links = scan_blocks(bt, s, level, *is_adjacent, block_starts);
+            level_links.push_back(scan_blocks(bt, s, level, *is_adjacent, block_starts));
+
             // Move to the next level
             if (level < bt->height() - 1) {
                 auto [next_is_adjacent, next_block_starts] = to_next_level(bt, s, level, *is_adjacent, block_starts);
@@ -101,6 +105,7 @@ struct Sequential {
         }
 
         for (size_t i = 0; i < block_starts.size(); ++i) {
+            // If the parent block is not internal, we don't save its children
             if (!(*bt->m_is_internal.back())[i]) {
                 continue;
             }
@@ -108,20 +113,23 @@ struct Sequential {
                 bt->m_leaf_string.push_back(bt->m_alphabet.to_code(s[block_starts[i] + j]));
             }
         }
-#ifdef PARBLO_DEBUG_PRINTS
+#ifndef PARBLO_DEBUG_PRINTS
         std::cout << "leaf string: " << bt->leaf_string() << std::endl;
 #endif
+        prune(bt, level_links);
     }
 
   private:
     using MarkingAccessor = word_packing::internal::PackedFixedWidthIntAccessor<2>;
 
     /// \brief Generates the bit vector containing which nodes are adjacent and a vector of block start positions for
-    /// the next level, given the values from the previous level. \param bt The block tree under construction. \param s
-    /// The string from which the block tree is being constructed. \param old_level The index of the previous level.
-    /// Level 0 is the root node. \param old_is_adjacent The `is_adjacent` bit vector of the previous level. \param
-    /// old_block_starts The `block_starts` vector of the previous level. \return A pair of a new `is_adjacent` bit
-    /// vector and a new `block_starts` bit vector.
+    /// the next level, given the values from the previous level.
+    /// \param bt The block tree under construction.
+    /// \param s The string from which the block tree is being constructed.
+    /// \param old_level The index of the previous level. Level 0 is the root node.
+    /// \param old_is_adjacent The `is_adjacent` bit vector of the previous level.
+    /// \param old_block_starts The `block_starts` vector of the previous level.
+    /// \return A pair of a new `is_adjacent` bit vector and a new `block_starts` bit vector.
     static auto to_next_level(const BlockTree       *bt,
                               const std::string     &s,
                               const size_t           old_level, // l
@@ -152,7 +160,7 @@ struct Sequential {
             }
 
             // If this parent's successor is not adjacent or the parent's successor is a back-pointer,
-            // Then the last child of the block will also not be adjacent to its succcessor
+            // Then the last child of the block will also not be adjacent to its successor
             if (!old_is_adjacent[i] || !old_is_internal[i + 1]) {
                 is_adjacent[(internal_block_counter + 1) * bt->m_arity - 1] = false;
             }
@@ -201,7 +209,7 @@ struct Sequential {
 
         // A map containing hashed slices mapped to their index of the pair's first block
         RabinKarpMap<int> map(num_blocks - 1);
-        const uint64_t rk_remainder = RabinKarp::generate_remainder(pair_size);
+        const uint64_t    rk_remainder = RabinKarp::generate_remainder(pair_size);
 
         // Set up the packed array holding the markings for each block.
         // If for some block pair we find an earlier occurrence, we increment the marking for both blocks.
@@ -297,7 +305,7 @@ struct Sequential {
     /// content from.
     /// \param bt The block tree under construction.
     /// \param s The input string.
-    /// \param level The curret level.
+    /// \param level The current level.
     /// \param is_adjacent A bit vector detailing whether two blocks on the current level are adjacent or not.
     ///     If a `is_adjacent[i]` is one, then blocks i and i+1 are adjacent.
     /// \param block_starts A vector holding the start position in the text for each block.
@@ -305,7 +313,7 @@ struct Sequential {
                             const std::string &s,
                             const size_t       level,
                             const BitVector   &is_adjacent,
-                            PackedIntVector   &block_starts) -> RabinKarpBoolMultiMap<Link> {
+                            PackedIntVector   &block_starts) -> RabinKarpMap<std::pair<bool, std::vector<Link>>> {
         const size_t block_size = bt->m_level_block_sizes[level];
         const size_t num_blocks = block_starts.size();
 
@@ -327,9 +335,11 @@ struct Sequential {
         PackedIntVector &source_blocks = bt->m_source_blocks.back();
         PackedIntVector &offsets       = bt->m_offsets.back();
 
-        // A map containing hashed slices mapped to a link to their (potential) source block.
+        // A map with hashed slices as keys, which map to a vector of links,
+        // describing a link between a (potential) back block to their source block.
+        // In addition to the vector, there is a boolean which denotes whether a hash has already been processed
         RabinKarpMap<std::pair<bool, std::vector<Link>>> links(num_blocks - 1);
-        const uint64_t rk_remainder = RabinKarp::generate_remainder(block_size);
+        const uint64_t                                   rk_remainder = RabinKarp::generate_remainder(block_size);
         for (size_t i = 0; i < num_blocks; ++i) {
             const HashedSlice hash   = RabinKarp(s, block_starts[i], block_size, rk_remainder).hashed_slice();
             auto              entry  = links.insert({hash, {false, {}}});
@@ -396,7 +406,6 @@ struct Sequential {
         }
         std::cout << std::endl;
 #endif
-
         return links;
     }
 
@@ -447,6 +456,55 @@ struct Sequential {
             // We handled this hash, so we mark it as such
             found->second.first = true;
             rk.advance();
+        }
+    }
+
+    static void prune(BlockTree *bt, std::vector<RabinKarpMap<std::pair<bool, std::vector<Link>>>> &level_links) {
+        // The `is_internal` vectors will change.
+        // I don't think there is a better way to do this that to do new allocations, unfortunately.
+        std::vector<std::unique_ptr<BitVector>> new_is_internal;
+        new_is_internal.reserve(bt->height());
+        std::vector<std::vector<Link>> new_links;
+
+        // >=0 as a condition doesn't work on size_t so we wait for it to wrap around
+        for (size_t level = bt->height() - 1; level != std::numeric_limits<size_t>::max(); level--) {
+            const size_t block_size          = bt->m_level_block_sizes[level];
+            const size_t block_size_bit_size = bit_size(block_size);
+            const size_t num_blocks          = bt->m_is_internal[level]->size();
+            const size_t num_blocks_bit_size = bit_size(num_blocks);
+            const size_t rk_remainder        = RabinKarp::generate_remainder(block_size);
+            const RabinKarpMap<std::pair<bool, std::vector<Link>>> &current_level_links = level_links[level];
+
+            std::unique_ptr<BitVector> current_is_internal = std::make_unique<BitVector>(num_blocks, 0);
+            size_t                     num_internal        = 0;
+            if (level != bt->height() - 1) {
+                for (int j = 0; j < current_is_internal->size(); ++j) {
+                    if (!(*bt->m_is_internal[level])[j]) {
+                        continue;
+                    }
+
+                    for (int k = 0; k < bt->m_arity; ++k) {
+                        if ((*new_is_internal.back())[num_internal * bt->m_arity + k]) {
+                            (*current_is_internal)[j] = true;
+                        }
+                    }
+                    num_internal++;
+                }
+            }
+
+            PackedIntVector current_source_blocks(num_blocks - num_internal, num_blocks_bit_size);
+            PackedIntVector current_offsets(num_blocks - num_internal, block_size_bit_size);
+            size_t          max_source_block_index = 0;
+
+            for (size_t j = num_blocks - 1; j != std::numeric_limits<decltype(j)>::max(); --j) {
+                if ((*current_is_internal)[j]) {
+                    continue;
+                }
+
+                bool has_ptr = false;
+
+
+            }
         }
     }
 };

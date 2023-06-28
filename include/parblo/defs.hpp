@@ -17,28 +17,20 @@ namespace parblo::internal {
     /// \brief A dynamically resizable vector for packed integers.
     using PackedIntVector = word_packing::PackedIntVector<size_t>;
 
+    /** \brief The hash map type used.
+     *  \tparam Key The type of keys stored in this map.
+     *  \tparam Value The type of values stored in this map.
+     *  \tparam Hash The hash used by this map. Defaults to `ankerl`'s hash function.
+     */
+    template<typename Key, typename Value, typename Hash=ankerl::unordered_dense::hash<Key>>
+    using HashMap = ankerl::unordered_dense::map<Key, Value, Hash>;
+    //using HashMap = std::unordered_map<Key, Value, Hash>;
+    
     /** \brief \verbatim embed:rst
         A map with :cpp:class:`hashed slices of text<parblo::HashedSlice>` as keys.
         \endverbatim
      *  \tparam V The type of values stored in this map.
      */
     template<typename V>
-    using RabinKarpMap = ankerl::unordered_dense::map<HashedSlice, V, std::hash<HashedSlice>>;
-
-    /** \brief \verbatim embed:rst
-        A multimap with :cpp:class:`hashed slices of text<parblo::HashedSlice>` as keys.
-        \endverbatim
-     *  \tparam V The type of values stored in this map.
-     */
-    template<typename V>
-    using RabinKarpMultiMap = ankerl::unordered_dense::map<HashedSlice, std::vector<V>, std::hash<HashedSlice>>;
-
-    /** \brief \verbatim embed:rst
-        A multimap with :cpp:class:`hashed slices of text<parblo::HashedSlice>` as keys
-        and an additional bool field to mark whether the value has already been processed..
-        \endverbatim
-     *  \tparam V The type of values stored in this map.
-     */
-    template<typename V>
-    using RabinKarpBoolMultiMap = ankerl::unordered_dense::map<HashedSlice, std::pair<bool, std::vector<V>>, std::hash<HashedSlice>>;
+    using RabinKarpMap = HashMap<HashedSlice, V, std::hash<HashedSlice>>;
 }

@@ -3,6 +3,8 @@
 #include <sstream>
 #include <string>
 
+#include <omp.h>
+
 #include <parblo/block_tree/block_tree.hpp>
 #include <parblo/block_tree/construction/sequential.hpp>
 
@@ -11,12 +13,13 @@ int main(int argc, const char **argv) {
         std::cout << "please input file" << std::endl;
         return 0;
     }
+
     std::string       input;
     std::ifstream     t(argv[1]);
     std::stringstream buffer;
     buffer << t.rdbuf();
     input = buffer.str();
 
-    parblo::BlockTree bt(input, 4, 8, parblo::Sequential());
+    parblo::BlockTree bt(input, 8, 4, parblo::Sequential());
     std::cout << "bt size: " << bt.space_consumption() << " bytes" << std::endl;
 }

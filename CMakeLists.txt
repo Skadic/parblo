@@ -15,6 +15,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb -DNDEBUG")
 
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
+set(CMAKE_COLOR_DIAGNOSTICS ON)
 # Copy compile_commands into the root folder
 add_custom_target(
   copy-compile-commands ALL
@@ -68,6 +69,7 @@ target_link_libraries(parblo INTERFACE unordered_dense)
 
 # openmp
 find_package(OpenMP REQUIRED)
+message("OpenMP Version: ${OpenMP_VERSION}")
 target_link_libraries(parblo INTERFACE OpenMP::OpenMP_CXX)
 
 # Some compile options
