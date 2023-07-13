@@ -71,6 +71,11 @@
         },
         {
             "name": "relwithdebinfo",
+            "inherits": "default",
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "release",
             "inherits": "default"
         },
         {
@@ -89,11 +94,11 @@
                 },
                 {
                     "type": "build",
-                    "name": "relwithdebinfo"
+                    "name": "release"
                 },
                 {
                     "type": "test",
-                    "name": "relwithdebinfo"
+                    "name": "release"
                 }
             ]
         }
