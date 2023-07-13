@@ -53,9 +53,7 @@ Program Listing for File hashed_slice.hpp
    
    } // namespace parblo
    
-   namespace std {
    template<>
-   struct hash<parblo::HashedSlice> {
+   struct std::hash<parblo::HashedSlice> {
        inline std::size_t operator()(const parblo::HashedSlice &slice) const { return slice.hash(); }
    };
-   } // namespace std

@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Typedef parblo::internal::RabinKarpBoolMultiMap &#8212; parblo  documentation</title>
+    <title>Function parblo::internal::floorlog2 &#8212; parblo  documentation</title>
   
   
   
@@ -42,11 +42,11 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script src="../_static/bootstrap-treeview/bootstrap-treeview.min.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api/typedef_namespaceparblo_1_1internal_1a8119489ec556d0f35d9c52e7fd8ed246';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/function_namespaceparblo_1_1internal_1a8343211accf2f7aaa3faad8dace9b9fc';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Typedef parblo::internal::RabinKarpMap" href="typedef_namespaceparblo_1_1internal_1af5870b2bc66d9cc0b48fc08457233d57.html" />
-    <link rel="prev" title="Typedef parblo::internal::PackedIntVector" href="typedef_namespaceparblo_1_1internal_1a5e2f8f8f1d20f3bdaaef595a837133dd.html" />
+    <link rel="next" title="Function parblo::internal::saturating_sub" href="function_namespaceparblo_1_1internal_1a49f28a36c5477e404b310f3d763072b7.html" />
+    <link rel="prev" title="Function parblo::internal::bit_size" href="function_namespaceparblo_1_1internal_1a00fa5b64d3e2a32dcc1931f5f206a5d2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
   </head>
@@ -137,12 +137,12 @@
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1HashedSlice.html">Class HashedSlice</a></li>
 <li class="toctree-l2"><a class="reference internal" href="classparblo_1_1RabinKarp.html">Class RabinKarp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="function_namespaceparblo_1_1internal_1a00fa5b64d3e2a32dcc1931f5f206a5d2.html">Function parblo::internal::bit_size</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Function parblo::internal::floorlog2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="function_namespaceparblo_1_1internal_1a49f28a36c5477e404b310f3d763072b7.html">Function parblo::internal::saturating_sub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a299477b8d11ef60f7d7777f849490ab2.html">Typedef parblo::internal::BitVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a8461278f776f51ae2e71642ac9dfa534.html">Typedef parblo::internal::HashMap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a5e2f8f8f1d20f3bdaaef595a837133dd.html">Typedef parblo::internal::PackedIntVector</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Typedef parblo::internal::RabinKarpBoolMultiMap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1af5870b2bc66d9cc0b48fc08457233d57.html">Typedef parblo::internal::RabinKarpMap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a37d5cc1d803633df0a273828f8c7ec0a.html">Typedef parblo::internal::RabinKarpMultiMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a5b55998e05d6d1187ba4b88319b11082.html">Typedef parblo::internal::RabinKarpMap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typedef_namespaceparblo_1_1internal_1a0f25eb4e376b11cc0e1049e98dfc5c87.html">Typedef parblo::internal::Rank</a></li>
 </ul>
 </li>
@@ -215,7 +215,7 @@
       
       
       
-      <li><a href="../_sources/api/typedef_namespaceparblo_1_1internal_1a8119489ec556d0f35d9c52e7fd8ed246.rst" target="_blank"
+      <li><a href="../_sources/api/function_namespaceparblo_1_1internal_1a8343211accf2f7aaa3faad8dace9b9fc.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -297,7 +297,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Typedef parblo::internal::RabinKarpBoolMultiMap</h1>
+    <h1>Function parblo::internal::floorlog2</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -307,7 +307,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typedef-documentation">Typedef Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-documentation">Function Documentation</a></li>
 </ul>
             </nav>
         </div>
@@ -319,24 +319,17 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="typedef-parblo-internal-rabinkarpboolmultimap">
-<span id="exhale-typedef-namespaceparblo-1-1internal-1a8119489ec556d0f35d9c52e7fd8ed246"></span><h1>Typedef parblo::internal::RabinKarpBoolMultiMap<a class="headerlink" href="#typedef-parblo-internal-rabinkarpboolmultimap" title="Permalink to this headline">#</a></h1>
+  <div class="section" id="function-parblo-internal-floorlog2">
+<span id="exhale-function-namespaceparblo-1-1internal-1a8343211accf2f7aaa3faad8dace9b9fc"></span><h1>Function parblo::internal::floorlog2<a class="headerlink" href="#function-parblo-internal-floorlog2" title="Permalink to this headline">#</a></h1>
 <ul class="simple">
-<li><p>Defined in <a class="reference internal" href="file_parblo_defs.hpp.html#file-parblo-defs-hpp"><span class="std std-ref">File defs.hpp</span></a></p></li>
+<li><p>Defined in <a class="reference internal" href="file_parblo_utils.hpp.html#file-parblo-utils-hpp"><span class="std std-ref">File utils.hpp</span></a></p></li>
 </ul>
-<div class="section" id="typedef-documentation">
-<h2>Typedef Documentation<a class="headerlink" href="#typedef-documentation" title="Permalink to this headline">#</a></h2>
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv4I0EN6parblo8internal21RabinKarpBoolMultiMapE">
-<span id="_CPPv3I0EN6parblo8internal21RabinKarpBoolMultiMapE"></span><span id="_CPPv2I0EN6parblo8internal21RabinKarpBoolMultiMapE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">V</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="namespaceparblo_1_1internal_1a8119489ec556d0f35d9c52e7fd8ed246"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">parblo</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">internal</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RabinKarpBoolMultiMap</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">ankerl</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_dense</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classparblo_1_1HashedSlice.html#_CPPv4N6parblo11HashedSliceE" title="parblo::HashedSlice"><span class="n"><span class="pre">HashedSlice</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN6parblo8internal21RabinKarpBoolMultiMapE" title="parblo::internal::RabinKarpBoolMultiMap::V"><span class="n"><span class="pre">V</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">hash</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classparblo_1_1HashedSlice.html#_CPPv4N6parblo11HashedSliceE" title="parblo::HashedSlice"><span class="n"><span class="pre">HashedSlice</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN6parblo8internal21RabinKarpBoolMultiMapE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p><p>A multimap with <a class="reference internal" href="classparblo_1_1HashedSlice.html#_CPPv4N6parblo11HashedSliceE" title="parblo::HashedSlice"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">hashed</span> <span class="pre">slices</span> <span class="pre">of</span> <span class="pre">text</span></code></a> as keys
-and an additional bool field to mark whether the value has already been processed..</p>
- </p>
-<dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
-<dd class="field-odd"><p><strong>V</strong> – The type of values stored in this map. </p>
-</dd>
-</dl>
+<div class="section" id="function-documentation">
+<h2>Function Documentation<a class="headerlink" href="#function-documentation" title="Permalink to this headline">#</a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6parblo8internal9floorlog2E6size_t">
+<span id="_CPPv3N6parblo8internal9floorlog2E6size_t"></span><span id="_CPPv2N6parblo8internal9floorlog2E6size_t"></span><span id="parblo::internal::floorlog2__sCE"></span><span class="target" id="namespaceparblo_1_1internal_1a8343211accf2f7aaa3faad8dace9b9fc"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">parblo</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">internal</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">floorlog2</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><a class="headerlink" href="#_CPPv4N6parblo8internal9floorlog2E6size_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Get the floored logarithm of x. </p>
 </dd></dl>
 
 </div>
@@ -355,20 +348,20 @@ and an additional bool field to mark whether the value has already been processe
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="typedef_namespaceparblo_1_1internal_1a5e2f8f8f1d20f3bdaaef595a837133dd.html"
+       href="function_namespaceparblo_1_1internal_1a00fa5b64d3e2a32dcc1931f5f206a5d2.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Typedef parblo::internal::PackedIntVector</p>
+        <p class="prev-next-title">Function parblo::internal::bit_size</p>
       </div>
     </a>
     <a class="right-next"
-       href="typedef_namespaceparblo_1_1internal_1af5870b2bc66d9cc0b48fc08457233d57.html"
+       href="function_namespaceparblo_1_1internal_1a49f28a36c5477e404b310f3d763072b7.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Typedef parblo::internal::RabinKarpMap</p>
+        <p class="prev-next-title">Function parblo::internal::saturating_sub</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -390,7 +383,7 @@ and an additional bool field to mark whether the value has already been processe
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typedef-documentation">Typedef Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-documentation">Function Documentation</a></li>
 </ul>
   </nav></div>
 

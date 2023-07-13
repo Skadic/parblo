@@ -60,5 +60,7 @@ Functions
 
 - :ref:`exhale_function_namespaceparblo_1_1internal_1a00fa5b64d3e2a32dcc1931f5f206a5d2`
 
+- :ref:`exhale_function_namespaceparblo_1_1internal_1a8343211accf2f7aaa3faad8dace9b9fc`
+
 - :ref:`exhale_function_namespaceparblo_1_1internal_1a49f28a36c5477e404b310f3d763072b7`
 

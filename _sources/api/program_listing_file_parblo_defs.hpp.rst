@@ -26,12 +26,10 @@ Program Listing for File defs.hpp
        using Rank = pasta::FlatRank<pasta::OptimizedFor::ZERO_QUERIES, BitVector>;
        using PackedIntVector = word_packing::PackedIntVector<size_t>;
    
+       template<typename Key, typename Value, typename Hash=ankerl::unordered_dense::hash<Key>>
+       using HashMap = ankerl::unordered_dense::map<Key, Value, Hash>;
+       //using HashMap = std::unordered_map<Key, Value, Hash>;
+       
        template<typename V>
-       using RabinKarpMap = ankerl::unordered_dense::map<HashedSlice, V, std::hash<HashedSlice>>;
-   
-       template<typename V>
-       using RabinKarpMultiMap = ankerl::unordered_dense::map<HashedSlice, std::vector<V>, std::hash<HashedSlice>>;
-   
-       template<typename V>
-       using RabinKarpBoolMultiMap = ankerl::unordered_dense::map<HashedSlice, std::pair<bool, std::vector<V>>, std::hash<HashedSlice>>;
+       using RabinKarpMap = HashMap<HashedSlice, V, std::hash<HashedSlice>>;
    }

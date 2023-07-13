@@ -55,8 +55,6 @@ Namespaces
 
 - :ref:`namespace_parblo`
 
-- :ref:`namespace_std`
-
 
 Classes
 -------
